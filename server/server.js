@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const { getProducts } = require("./data/queries");
 
 const app = express();
 const corsOptions = {
@@ -8,8 +9,9 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.get("/api", (req, res) => {
-    res.json({ arr: [1, 2, 3] });
+app.get("/products", async (req, res) => {
+    const products = await getProducts();
+    res.json( products );
 });
 
 app.listen(8080, () => {

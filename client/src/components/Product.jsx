@@ -1,9 +1,9 @@
 export default function Product({product}) {
     return (
-        <div>
-            <img src={product.image_url} alt={product.name}/>
-            <p>{product.name}</p>
-            <p>{product.price}</p>
+        <div className="product">
+            <img className="product-image" src={product.image_url} alt={product.name}/>
+            <p className="product-name">{product.name}</p>
+            <p className="product-price">{product.price}</p>
         </div>
     );
 }

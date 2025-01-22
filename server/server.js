@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { getProducts } = require("./data/queries");
+const { getProducts, getCategories } = require("./data/queries");
 
 const app = express();
 const corsOptions = {
@@ -10,8 +10,14 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.get("/products", async (req, res) => {
-    const products = await getProducts();
+    const category = req.query.category;
+    const products = await getProducts(category);
     res.json( products );
+});
+
+app.get("/categories", async (req, res) => {
+    const categories = await getCategories();
+    res.json( categories );
 });
 
 app.listen(8080, () => {

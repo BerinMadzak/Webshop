@@ -3,6 +3,14 @@
   text-align: center;
 }
 
+body {
+  align-items: flex-start;
+}
+
+.menu {
+  display: flex;
+}
+
 .product-list {
   display: grid;
   grid-template-columns: repeat(5, 1fr);

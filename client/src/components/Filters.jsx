@@ -1,7 +1,7 @@
 export default function Filters({categories, onFiltersChange}) {
     return (
-        <div>
-            <p>Categories</p>
+        <div className="category-filter">
+            <p>Category</p>
             <select onChange={onFiltersChange}>
                 <option>All</option>
                 {categories && categories.map(c => {

@@ -42,3 +42,12 @@ body {
   content: "$";
 }
 
+.category-filter {
+  padding-left: 20px;
+  padding-top: 50px;
+}
+
+.category-filter select {
+  width: 150px;
+}
+

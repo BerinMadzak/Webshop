@@ -11,7 +11,8 @@ app.use(cors(corsOptions));
 
 app.get("/products", async (req, res) => {
     const category = req.query.category;
-    const products = await getProducts(category);
+    const search = req.query.search;
+    const products = await getProducts(category, search);
     res.json( products );
 });
 

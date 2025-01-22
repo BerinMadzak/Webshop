@@ -1,6 +1,7 @@
 #root {
   margin: 0 auto;
   text-align: center;
+  width: 100vw;
 }
 
 body {
@@ -9,6 +10,11 @@ body {
 
 .menu {
   display: flex;
+}
+
+.header {
+  height: 5vh;
+  background-color: gray;
 }
 
 .product-list {
@@ -49,5 +55,22 @@ body {
 
 .category-filter select {
   width: 150px;
+}
+
+.search {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.search input {
+  height: 30px;
+  width: 40vw;
+}
+
+.search button {
+  width: 100px;
 }
 

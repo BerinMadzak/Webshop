@@ -9,12 +9,19 @@ async function getAll(query, params) {
     }) ;
 }
 
-async function getProducts(category) {
+async function getProducts(category, search) {
     let sql = `SELECT * FROM products`;
     const params = [];
+    console.log("S: " + search);
     if(category !== "All") {
         sql += " WHERE category_id = ?";
         params.push(category);
+    }
+    if(search !== "") {
+        if(category !== "All") sql += " AND";
+        else sql += " WHERE";
+        sql += " name LIKE ?";
+        params.push("%"+search+"%");
     }
     const result = await getAll(sql, params);
     return result;

@@ -107,3 +107,28 @@ body {
   align-items: center;
   font-size: 0.9rem;
 }
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.signup-form > div > div {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.signup-form p {
+  color: red;
+  font-style: italic;
+  font-size: 0.7rem;
+}
+
+.signup-form > button {
+  width: 200px;
+}

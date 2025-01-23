@@ -32,10 +32,10 @@ const createTablesQuery = `
         username TEXT NOT NULL UNIQUE,
         email TEXT NOT NULL UNIQUE,
         password_hash TEXT NOT NULL,
-        first_name TEXT,
-        last_name TEXT,
-        phone_number TEXT,
-        address TEXT,
+        first_name TEXT NOT NULL,
+        last_name TEXT NOT NULL,
+        phone_number TEXT NOT NULL,
+        address TEXT NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 

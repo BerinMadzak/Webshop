@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
     const [userData, setUserData] = useState({
@@ -13,6 +14,9 @@ export default function Signup() {
     });
 
     const [errors, setErrors] = useState({});
+    const [created, setCreated] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -53,16 +57,35 @@ export default function Signup() {
                 });
 
                 if(!response.ok) {
+                    const errorData = await response.json();
+
+                    if(errorData.errors.length > 0) {
+                        let errs = {};
+                        for(let i = 0; i < errorData.errors.length; i++) {
+                            console.log(errorData.errors[i]);
+                            errs[errorData.errors[i].path] = errorData.errors[i].msg;
+                        }
+                        console.log(errs);
+                        setErrors(errs);
+                    }
                     throw new Error('Failed to create account');
                 }
 
                 const data = await response.json();
                 console.log('Account created');
+                setCreated(true);
             } catch (error) {
                 console.error(error);
             }
         }
     };
+
+    if(created) return (
+        <div className="center-flex">
+            <p>Account created</p>
+            <button onClick={() => navigate('/')}>Go to login</button>
+        </div>
+    );
 
     return (
         <form className="signup-form" onSubmit={handleSubmit}>

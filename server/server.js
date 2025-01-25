@@ -2,6 +2,7 @@ const express = require("express");
 const { body, validationResult } = require('express-validator');
 const cors = require("cors");
 const { getProducts, getCategories, createAccount, getUserByUsername, getUserByEmail } = require("./data/queries");
+const bcrypt = require("bcryptjs");
 
 const app = express();
 const corsOptions = {
@@ -50,6 +51,34 @@ app.post("/signup", [
     createAccount(req.body);
     
     res.status(200).json({ message: 'Account created successfuly' });
+});
+
+app.post("/login", [
+    body('username').notEmpty().withMessage('Username is required').custom(async(value) => {
+        const user = await getUserByUsername(value);
+        if(!user) throw new Error('Username does not exist');
+        return true;
+    }),
+    body('password').custom(async(value, { req }) => {
+        const user = await getUserByUsername(req.body.username);
+        if(user) {
+            const match = await bcrypt.compare(value, user.password_hash);
+            if(!match) {
+                throw new Error('Incorrect password');
+            }
+        }
+        return true;
+    }),
+], async (req, res) => {
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    const user = await getUserByUsername(req.body.username);
+    
+    res.status(200).json({ message: 'Succesful Login', user: user });
 });
 
 app.listen(8080, () => {

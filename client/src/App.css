@@ -12,17 +12,30 @@ button:focus {
   outline: none;
 }
 
+.center-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .menu {
   display: flex;
+}
+
+.flex-gap {
+  display: flex;
+  gap: 20px;
 }
 
 .header {
   height: 5vh;
   background-color: gray;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
-  padding-right: 20px;
+  padding: 0px 20px;
 }
 
 .header > i {

@@ -8,6 +8,10 @@ body {
   align-items: flex-start;
 }
 
+button:focus {
+  outline: none;
+}
+
 .menu {
   display: flex;
 }
@@ -30,6 +34,7 @@ body {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   padding: 50px;
+  row-gap: 50px;
 }
 
 .product {
@@ -55,6 +60,23 @@ body {
 
 .product-price::after {
   content: "$";
+}
+
+.product-count {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.product-count input {
+  text-align: center;
+  font-size: 1.2rem;
+  width: 30%;
+}
+
+.product-current {
+  font-style: italic;
+  font-size: 0.85rem;
 }
 
 .category-filter {
@@ -131,4 +153,14 @@ body {
 
 .signup-form > button {
   width: 200px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
 }

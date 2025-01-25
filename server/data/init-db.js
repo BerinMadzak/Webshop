@@ -86,7 +86,11 @@ const addDataQuery = `
         (4, "MBJ Women's Solid Short Sleeve Boat Neck V ", "95% RAYON 5% SPANDEX, Made in USA or Imported, Do Not Bleach, Lightweight fabric with great stretch for comfort, Ribbed on sleeves and neckline / Double stitching on bottom hem", 9.85, "https://fakestoreapi.com/img/71z3kpMAYsL._AC_UY879_.jpg"),
         (4, "Opna Women's Short Sleeve Moisture", "100% Polyester, Machine wash, 100% cationic polyester interlock, Machine Wash & Pre Shrunk for a Great Fit, Lightweight, roomy and highly breathable with 
         moisture wicking fabric which helps to keep moisture away, Soft Lightweight Fabric with comfortable V-neck collar and a slimmer fit, delivers a sleek, more feminine silhouette and Added Comfort", 7.95, "https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg"),
-        (4, "DANVOUY Womens T Shirt Casual Cotton Short", "95%Cotton,5%Spandex, Features: Casual, Short Sleeve, Letter Print,V-Neck,Fashion Tees, The fabric is soft and has some stretch., Occasion: Casual/Office/Beach/School/Home/Street. Season: Spring,Summer,Autumn,Winter.", 12.99, "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg");    
+        (4, "DANVOUY Womens T Shirt Casual Cotton Short", "95%Cotton,5%Spandex, Features: Casual, Short Sleeve, Letter Print,V-Neck,Fashion Tees, The fabric is soft and has some stretch., Occasion: Casual/Office/Beach/School/Home/Street. Season: Spring,Summer,Autumn,Winter.", 12.99, "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg"); 
+        
+        INSERT INTO Users (username, email, password_hash, first_name, last_name, phone_number, address)
+        VALUES 
+            ("Test", "test@test.com", "$2a$10$RmN6YXYTjxGB4FqzWUA9ouY2TC.0XLkB8oMXm1MZd.bpJ/kTtXaci", "First_Name", "Last_Name", "12345678", "Test Address");
 `
 
 // Query Execution

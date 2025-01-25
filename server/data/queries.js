@@ -1,4 +1,5 @@
 const db = require("./db");
+const bcrypt = require("bcryptjs");
 
 async function getAll(query, params) {
     return new Promise(function(resolve, reject){ 
@@ -10,9 +11,8 @@ async function getAll(query, params) {
 }
 
 async function getProducts(category, search) {
-    let sql = `SELECT * FROM products`;
+    let sql = `SELECT * FROM Products`;
     const params = [];
-    console.log("S: " + search);
     if(category !== "All") {
         sql += " WHERE category_id = ?";
         params.push(category);
@@ -28,10 +28,37 @@ async function getProducts(category, search) {
 }
 
 async function getCategories() {
-    const sql = `SELECT * FROM categories`;
+    const sql = `SELECT * FROM Categories`;
     const result = await getAll(sql);
     return result;
 }
 
+async function getUserByUsername(username) {
+    const sql = `SELECT * FROM Users WHERE username = ?`;
+    const result = await getAll(sql, [username]);
+    if(result.length > 0) return result[0];
+    else return null;
+}
 
-module.exports = { getProducts, getCategories };
+async function getUserByEmail(email) {
+    const sql = `SELECT * FROM Users WHERE email = ?`;
+    const result = await getAll(sql, [email]);
+    if(result.length > 0) return result[0];
+    else return null;
+}
+
+function createAccount(data) {
+    const sql = `INSERT INTO Users (username, email, password_hash, first_name, last_name, phone_number, address)
+                 VALUES(?, ?, ?, ?, ?, ?, ?)`;
+
+    bcrypt.hash(data.password, 10, async(err, hashedPassword) => {
+        if(err) return console.error(err.message);
+
+        db.run(sql, [data.username, data.email, hashedPassword, data.firstName, data.lastName, data.phone, data.address], (err) => {
+            if(err) return console.error(err.message);
+        });
+    });
+}
+
+
+module.exports = { getProducts, getCategories, createAccount, getUserByUsername, getUserByEmail };

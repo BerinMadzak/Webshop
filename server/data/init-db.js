@@ -50,7 +50,7 @@ const createTablesQuery = `
         cart_id INTEGER,
         product_id INTEGER,
         quantity INTEGER NOT NULL,
-        FOREIGN KEY (cart_id) REFERENCES Carts(card_id),
+        FOREIGN KEY (cart_id) REFERENCES Carts(cart_id),
         FOREIGN KEY (product_id) REFERENCES Products(product_id)
     );
 `

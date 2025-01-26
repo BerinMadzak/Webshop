@@ -1,13 +1,22 @@
 const db = require("./db");
 const bcrypt = require("bcryptjs");
 
-async function getAll(query, params) {
+async function getAll(query, params = []) {
     return new Promise(function(resolve, reject){ 
         db.all(query, params, function(err, rows) {
             if(err) return reject(err);
             resolve(rows);
         });
-    }) ;
+    });
+}
+
+function runAsync(sql, params = []) {
+    return new Promise((resolve, reject) => {
+        db.run(sql, params, function(err) {
+            if(err) reject(err);
+            else resolve(this);
+        });
+    });
 }
 
 async function getProducts(category, search) {
@@ -47,6 +56,26 @@ async function getUserByEmail(email) {
     else return null;
 }
 
+async function getCartByUserId(user_id) {
+    const sql = `SELECT * FROM Carts WHERE user_id = ?`;
+    const result = await getAll(sql, [user_id]);
+    if(result.length > 0) return result[0];
+    else {
+        const cart = await createCart(user_id);
+        return cart;
+    }
+}
+
+async function createCart(user_id) {
+    const sql = `INSERT INTO Carts(user_id) VALUES(?)`;
+    const result = await runAsync(sql, [user_id]);
+    const cart_id = result.lastID;
+    
+    const sql2 = `SELECT * FROM Carts WHERE cart_id = ?`;
+    const cart = await getAll(sql2, [cart_id]);
+    return cart[0];
+}
+
 function createAccount(data) {
     const sql = `INSERT INTO Users (username, email, password_hash, first_name, last_name, phone_number, address)
                  VALUES(?, ?, ?, ?, ?, ?, ?)`;
@@ -61,4 +90,4 @@ function createAccount(data) {
 }
 
 
-module.exports = { getProducts, getCategories, createAccount, getUserByUsername, getUserByEmail };
+module.exports = { getProducts, getCategories, createAccount, getUserByUsername, getUserByEmail, getCartByUserId };

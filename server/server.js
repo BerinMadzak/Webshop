@@ -1,7 +1,7 @@
 const express = require("express");
 const { body, validationResult } = require('express-validator');
 const cors = require("cors");
-const { getProducts, getCategories, createAccount, getUserByUsername, getUserByEmail } = require("./data/queries");
+const { getProducts, getCategories, createAccount, getUserByUsername, getUserByEmail, getCartByUserId } = require("./data/queries");
 const bcrypt = require("bcryptjs");
 
 const app = express();
@@ -77,8 +77,9 @@ app.post("/login", [
     }
 
     const user = await getUserByUsername(req.body.username);
+    const cart = await getCartByUserId(user.user_id);
     
-    res.status(200).json({ message: 'Succesful Login', user: user });
+    res.status(200).json({ message: 'Succesful Login', user: user, cart: cart });
 });
 
 app.listen(8080, () => {

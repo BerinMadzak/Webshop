@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ShopContext } from "../main";
+import { useNavigate } from "react-router-dom";
 
 export default function Product({product}) {
     const [count, setCount] = useState(0);
+    const { account } = useContext(ShopContext);
+    const navigate = useNavigate();
 
     function addToCart() {
         setCount(prev => prev + 1);
@@ -19,6 +23,10 @@ export default function Product({product}) {
         else setCount(value);
     }
 
+    function handleAdd() {
+        if(!account) navigate('/login', { state: { msg: 'Please login to add items to cart' } });
+    }
+
     return (
         <div className="product">
             <img className="product-image" src={product.image_url} alt={product.name}/>
@@ -30,7 +38,7 @@ export default function Product({product}) {
                     <input type="text" min="0" step="1" value={count} onChange={handleChange}/>
                     <button onClick={addToCart}>+</button>
                 </div>
-                <button>Add To Cart</button>
+                <button onClick={handleAdd}>Add To Cart</button>
                 <p className="product-current">Currently in cart: 0</p>
             </div>
         </div>

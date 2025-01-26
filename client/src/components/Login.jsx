@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ShopContext } from "../main";
 
 export default function Login() {
@@ -12,6 +12,8 @@ export default function Login() {
     const { setAccount } = useContext(ShopContext);
 
     const navigate = useNavigate();
+    const location = useLocation();
+    const msg = location.state;
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -71,6 +73,7 @@ export default function Login() {
     return (
         <form className="signup-form" onSubmit={handleSubmit}>
             <h1>Login</h1>
+            {msg && <p>{msg.msg}</p>}
             <div>
                 <div>
                     <label htmlFor="username">Username: </label>

@@ -24,10 +24,12 @@ export default function Header() {
                     <button onClick={handleSignOut}>Sign Out</button>
                 </div>
             }
-            <div className="cart-container">
-                <i className="cart-icon fa-solid fa-cart-shopping"></i>
-                <p className="cart-count">0</p>
-            </div>
+            {account &&            
+                <div className="cart-container">
+                    <i className="cart-icon fa-solid fa-cart-shopping"></i>
+                    <p className="cart-count">0</p>
+                </div>
+            }
         </div>
     );
 }

@@ -9,7 +9,7 @@ export default function Login() {
     });
 
     const [errors, setErrors] = useState({});
-    const { setAccount } = useContext(ShopContext);
+    const { setAccount, setCart, setCartContents } = useContext(ShopContext);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -63,6 +63,8 @@ export default function Login() {
                 const data = await response.json();
                 console.log(data.message);
                 setAccount(data.user);
+                setCart(data.cart);
+                setCartContents(data.contents);
                 navigate('/');
             } catch (error) {
                 console.error(error);

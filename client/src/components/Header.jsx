@@ -3,11 +3,22 @@ import { ShopContext } from "../main";
 import { useNavigate } from "react-router-dom";
 
 export default function Header() {
-    const { account, setAccount } = useContext(ShopContext);
+    const { account, setAccount, cart, setCart, cartContents, setCartContents } = useContext(ShopContext);
     const naviagte = useNavigate();
 
     function handleSignOut() {
         setAccount(null);
+        setCart(null);
+        setCartContents(null);
+    }
+
+    function cartContentCount() {
+        let count = 0;
+        console.log(cartContents);
+        for(let i = 0; i < cartContents.length; i++) {
+            count += cartContents[i].quantity;
+        }
+        return count;
     }
 
     return (
@@ -27,7 +38,7 @@ export default function Header() {
             {account &&            
                 <div className="cart-container">
                     <i className="cart-icon fa-solid fa-cart-shopping"></i>
-                    <p className="cart-count">0</p>
+                    <p className="cart-count">{cartContentCount()}</p>
                 </div>
             }
         </div>

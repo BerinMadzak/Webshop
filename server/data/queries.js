@@ -76,6 +76,30 @@ async function createCart(user_id) {
     return cart[0];
 }
 
+async function addToCart(data) {
+    const sql = `SELECT * FROM Cart_Items WHERE product_id = ? AND cart_id = ?`;
+    const result = await getAll(sql, [data.product_id, data.cart_id]);
+    if(result.length > 0) {
+        const sql2 = `UPDATE Cart_Items SET quantity = ? WHERE cart_item_id = ?`;
+        await runAsync(sql2, [result[0].quantity + data.quantity, result[0].cart_item_id]);
+        return result[0].cart_item_id;
+    } else {
+        const sql2 = `INSERT INTO Cart_Items (cart_id, product_id, quantity) VALUES (?, ?, ?)`;
+        const result2 = await runAsync(sql2, [data.cart_id, data.product_id, data.quantity]);
+        return result2.lastID;
+    }
+}
+
+async function getCartContents(cart_id) {
+    const sql = `SELECT p.product_id, p.name, p.price, p.image_url, ci.quantity, (p.price * ci.quantity) AS total_price 
+                FROM Products p 
+                JOIN Cart_Items ci ON p.product_id = ci.product_id 
+                JOIN Carts c ON ci.cart_id = c.cart_id
+                WHERE c.cart_id = ?`;
+    const result = await getAll(sql, [cart_id]);
+    return result;
+}
+
 function createAccount(data) {
     const sql = `INSERT INTO Users (username, email, password_hash, first_name, last_name, phone_number, address)
                  VALUES(?, ?, ?, ?, ?, ?, ?)`;
@@ -90,4 +114,5 @@ function createAccount(data) {
 }
 
 
-module.exports = { getProducts, getCategories, createAccount, getUserByUsername, getUserByEmail, getCartByUserId };
+module.exports = { getProducts, getCategories, createAccount, getUserByUsername, 
+                getUserByEmail, getCartByUserId, addToCart, getCartContents };

@@ -29,10 +29,12 @@ export const ShopContext = createContext(null);
 
 const Main = () => {
   const [account, setAccount] = useState(null);
+  const [cart, setCart] = useState(null);
+  const [cartContents, setCartContents] = useState(null);
 
   return (
     <StrictMode>
-      <ShopContext.Provider value={{ account, setAccount }}>
+      <ShopContext.Provider value={{ account, setAccount, cart, setCart, cartContents, setCartContents }}>
         <RouterProvider router={router} />
       </ShopContext.Provider>
     </StrictMode>

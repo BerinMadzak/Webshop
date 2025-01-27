@@ -2,10 +2,12 @@ import { useContext, useState } from "react";
 import { ShopContext } from "../main";
 import { useNavigate } from "react-router-dom";
 
-export default function Product({product}) {
+export default function Product({product, handleAdd}) {
     const [count, setCount] = useState(0);
     const { account } = useContext(ShopContext);
     const navigate = useNavigate();
+
+    const { cart, cartContents } = useContext(ShopContext);
 
     function addToCart() {
         setCount(prev => prev + 1);
@@ -23,8 +25,15 @@ export default function Product({product}) {
         else setCount(value);
     }
 
-    function handleAdd() {
+    function handleAddToCart() {
         if(!account) navigate('/login', { state: { msg: 'Please login to add items to cart' } });
+        handleAdd({cart_id: cart.cart_id, product_id: product.product_id, quantity: count});
+    }
+
+    function getCartCount() {
+        const result = cartContents.find(p => p.product_id === product.product_id);
+        if(result) return result.quantity;
+        else return
     }
 
     return (
@@ -38,8 +47,8 @@ export default function Product({product}) {
                     <input type="text" min="0" step="1" value={count} onChange={handleChange}/>
                     <button onClick={addToCart}>+</button>
                 </div>
-                <button onClick={handleAdd}>Add To Cart</button>
-                <p className="product-current">Currently in cart: 0</p>
+                <button onClick={handleAddToCart}>Add To Cart</button>
+                {cartContents && <p className="product-current">Currently in cart: {getCartCount()}</p>}
             </div>
         </div>
     );

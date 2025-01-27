@@ -1,7 +1,7 @@
 const express = require("express");
 const { body, validationResult } = require('express-validator');
 const cors = require("cors");
-const { getProducts, getCategories, createAccount, getUserByUsername, getUserByEmail, getCartByUserId } = require("./data/queries");
+const { getProducts, getCategories, createAccount, getUserByUsername, getUserByEmail, getCartByUserId, getCartContents, addToCart } = require("./data/queries");
 const bcrypt = require("bcryptjs");
 
 const app = express();
@@ -22,6 +22,19 @@ app.get("/products", async (req, res) => {
 app.get("/categories", async (req, res) => {
     const categories = await getCategories();
     res.json( categories );
+});
+
+app.get("/contents/:cart_id", async (req, res) => {
+    const cart_id = req.params['cart_id'];
+    const contents = await getCartContents(cart_id);
+    res.json ( contents );
+});
+
+app.post("/add", async(req, res) => {
+    const data = req.body;
+    await addToCart(data);
+    const contents = await getCartContents(data.cart_id);
+    res.status(200).json( contents );
 });
 
 app.post("/signup", [
@@ -78,8 +91,9 @@ app.post("/login", [
 
     const user = await getUserByUsername(req.body.username);
     const cart = await getCartByUserId(user.user_id);
+    const contents = await getCartContents(cart.cart_id);
     
-    res.status(200).json({ message: 'Succesful Login', user: user, cart: cart });
+    res.status(200).json({ message: 'Succesful Login', user: user, cart: cart, contents: contents });
 });
 
 app.listen(8080, () => {

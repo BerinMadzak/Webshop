@@ -5,16 +5,24 @@ import Filters from './components/Filters';
 import Header from './components/Header';
 import Search from './components/Search';
 import { ShopContext } from './main';
+import Cookies from "js-cookie";
 
 function App() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
 
-  const { setCartContents } = useContext(ShopContext);
+  const { setCartContents, setCart, setAccount } = useContext(ShopContext);
 
   useEffect(() => {
     loadProducts("All", "");
     fetch('http://localhost:8080/categories').then(res => res.json()).then(json => setCategories(json));
+    const cookie = Cookies.get('user-data');
+    if(cookie) {
+      const data = JSON.parse(Cookies.get('user-data'));
+      setAccount(data.user);
+      setCart(data.cart);
+      setCartContents(data.contents);
+    }
   }, []);
 
   function loadProducts (category, search) {

@@ -27,6 +27,7 @@ button:focus {
 .flex-gap {
   display: flex;
   gap: 20px;
+  align-items: center;
 }
 
 .header {
@@ -90,6 +91,30 @@ button:focus {
 .product-current {
   font-style: italic;
   font-size: 0.85rem;
+}
+
+.cart-table {
+  width: 100%;
+  table-layout: fixed;
+  padding-top: 30px;
+}
+
+.cart-product {
+  justify-content: space-between;
+}
+
+.cart-product:nth-child(odd) {
+  background-color: #232323;
+}
+
+.cart-product:nth-child(even) {
+  background-color: #323232;
+}
+
+.cart-product-image {
+  width: 70px;
+  height: 70px;
+  padding: 0 20px;
 }
 
 .category-filter {

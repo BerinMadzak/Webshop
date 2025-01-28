@@ -5,6 +5,7 @@ import './index.css'
 import App from './App.jsx'
 import Signup from './components/Signup.jsx';
 import Login from './components/Login.jsx';
+import Cart from './components/Cart.jsx';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "login",
     element: <Login />
+  },
+  {
+    path: "cart",
+    element: <Cart />
   },
   {
     path: '*',

@@ -36,7 +36,7 @@ export default function Header() {
                 </div>
             }
             {account &&            
-                <div className="cart-container">
+                <div className="cart-container" onClick={() => naviagte('/cart')}>
                     <i className="cart-icon fa-solid fa-cart-shopping"></i>
                     <p className="cart-count">{cartContentCount()}</p>
                 </div>

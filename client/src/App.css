@@ -32,7 +32,7 @@ button:focus {
 
 .header {
   height: 5vh;
-  background-color: gray;
+  background-color: #434343;
   display: flex;
   justify-content: space-between;
   align-items: center;

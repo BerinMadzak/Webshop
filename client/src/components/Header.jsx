@@ -31,7 +31,7 @@ export default function Header() {
             }
             {account &&
                 <div className="flex-gap">
-                    <p>{account.username}</p>
+                    <p>Welcome, {account.username}</p>
                     <button onClick={handleSignOut}>Sign Out</button>
                 </div>
             }

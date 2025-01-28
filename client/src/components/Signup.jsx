@@ -17,7 +17,7 @@ export default function Signup() {
     const [created, setCreated] = useState(false);
 
     const navigate = useNavigate();
-
+    
     const handleChange = (e) => {
         const { name, value } = e.target;
         setUserData((prev) => ({

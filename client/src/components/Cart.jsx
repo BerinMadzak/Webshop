@@ -1,16 +1,12 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { ShopContext } from "../main";
 import CartProduct from "./CartProduct";
 import { useNavigate } from "react-router-dom";
 
 export default function Cart()
 {
-    const { cartContents, account } = useContext(ShopContext);
+    const { cartContents } = useContext(ShopContext);
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if(account === null) navigate('/');
-    }, []);
 
     return (
         <div>

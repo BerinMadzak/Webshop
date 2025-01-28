@@ -12,7 +12,7 @@ export default function CartProduct({ product })
                 <p>{product.quantity}</p>
             </td>
             <td>
-                <p className="product-price">{product.price * product.quantity}</p>
+                <p className="product-price">{product.total_price}</p>
             </td>
         </tr>
     );

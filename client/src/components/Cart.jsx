@@ -5,8 +5,32 @@ import { useNavigate } from "react-router-dom";
 
 export default function Cart()
 {
-    const { cartContents } = useContext(ShopContext);
+    const { cartContents, account, cart, setCartContents } = useContext(ShopContext);
     const navigate = useNavigate();
+
+    function handleDelete(product_id) {
+        console.log("1");
+        if(!account) navigate('/login', { state: { msg: 'Please login to remove items to cart' } });
+        console.log("2");
+        const data = {
+            product_id: product_id,
+            quantity: -1,
+            cart_id: cart.cart_id
+        };
+        fetch(`http://localhost:8080/remove`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(res => res.json()).then(data => {
+            setCartContents(data);
+        }).catch(error => console.error(error));
+    }
+
+    const actions = {
+        handleDelete
+    }
 
     return (
         <div>
@@ -19,11 +43,12 @@ export default function Cart()
                         <th>Name</th>
                         <th>Amount</th>
                         <th>Total Price</th>
+                        <th className="small-col"></th>
                     </tr>
                 </thead>
                 <tbody>
                     {cartContents &&
-                        cartContents.map(product => <CartProduct product={product} key={product.name}/>)
+                        cartContents.map(product => <CartProduct product={product} key={product.name} actions={actions}/>)
                     }
                 </tbody>
             </table>

@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ShopContext } from "../main";
-import Cookies from "js-cookie";
 
 export default function Login() {
     const [userData, setUserData] = useState({
@@ -43,8 +42,10 @@ export default function Login() {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(userData)
+                    body: JSON.stringify(userData),
+                    credentials: 'include'
                 });
+                console.log("Hdaw");
 
                 if(!response.ok) {
                     const errorData = await response.json();
@@ -63,7 +64,6 @@ export default function Login() {
 
                 const data = await response.json();
                 console.log(data.message);
-                Cookies.set('user-data', JSON.stringify(data), { expires: 7});
                 setAccount(data.user);
                 setCart(data.cart);
                 setCartContents(data.contents);

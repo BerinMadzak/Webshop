@@ -1,16 +1,22 @@
 const express = require("express");
 const { body, validationResult } = require('express-validator');
 const cors = require("cors");
-const { getProducts, getCategories, createAccount, getUserByUsername, getUserByEmail, getCartByUserId, getCartContents, addToCart } = require("./data/queries");
+const { getProducts, getCategories, createAccount, getUserByUsername, getUserByEmail, getCartByUserId, getCartContents, addToCart, removeFromCart } = require("./data/queries");
 const bcrypt = require("bcryptjs");
+const cookieParser = require("cookie-parser");
+const jwt = require('jsonwebtoken');
 
 const app = express();
 const corsOptions = {
-    origin: ["http://localhost:5173"]
+    origin: ["http://localhost:5173"],
+    credentials: true
 };
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(cors(corsOptions));
+
+const SECRET_KEY = 'TEMP KEY'; // Store in env later
 
 app.get("/products", async (req, res) => {
     const category = req.query.category;
@@ -33,6 +39,14 @@ app.get("/contents/:cart_id", async (req, res) => {
 app.post("/add", async(req, res) => {
     const data = req.body;
     await addToCart(data);
+    const contents = await getCartContents(data.cart_id);
+    res.status(200).json( contents );
+});
+
+app.post("/remove", async(req, res) => {
+    const data = req.body;
+    console.log(data);
+    await removeFromCart(data);
     const contents = await getCartContents(data.cart_id);
     res.status(200).json( contents );
 });
@@ -89,11 +103,39 @@ app.post("/login", [
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const user = await getUserByUsername(req.body.username);
+    const username = req.body.username;
+    const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1h' });
+
+    res.cookie('token', token, {
+        httpOnly: true,
+        //secure: process.env.NODE_ENV === 'production',
+        maxAge: 3600000
+    });
+
+    const user = await getUserByUsername(username);
     const cart = await getCartByUserId(user.user_id);
     const contents = await getCartContents(cart.cart_id);
     
     res.status(200).json({ message: 'Succesful Login', user: user, cart: cart, contents: contents });
+});
+
+app.get("/account", async (req, res) => {
+    const token = req.cookies.token;
+
+    if(!token) {
+        return res.status(401).json({ message: 'No token' });
+    }
+
+    jwt.verify(token, SECRET_KEY, async (err, data) => {
+        if(err) {
+            return res.status(401).json({ message: 'Invalid or expired token' });
+        }
+
+        const user = await getUserByUsername(data.username); 
+        const cart = await getCartByUserId(user.user_id);
+        const contents = await getCartContents(cart.cart_id);    
+        res.status(200).json({ user: user, cart: cart, contents: contents });
+    })
 });
 
 app.listen(8080, () => {

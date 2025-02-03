@@ -1,17 +1,15 @@
 import { useContext } from "react";
 import { ShopContext } from "../main";
 import { useNavigate } from "react-router-dom";
-import Cookies from 'js-cookie';
 
 export default function Header() {
-    const { account, setAccount, cart, setCart, cartContents, setCartContents } = useContext(ShopContext);
+    const { account, setAccount, setCart, cartContents, setCartContents } = useContext(ShopContext);
     const naviagte = useNavigate();
 
     function handleSignOut() {
         setAccount(null);
         setCart(null);
         setCartContents(null);
-        Cookies.remove("user-data");
     }
 
     function cartContentCount() {

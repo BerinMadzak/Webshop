@@ -99,8 +99,30 @@ button:focus {
   padding-top: 30px;
 }
 
+.cart-table th {
+  background-color: #323232;
+}
+
 .cart-product {
   justify-content: space-between;
+}
+
+.small-col {
+  width: 50px;
+}
+
+.cart-product-count {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.cart-product-count input {
+  width: 50px;
+  text-align: center;
 }
 
 .cart-product:nth-child(odd) {

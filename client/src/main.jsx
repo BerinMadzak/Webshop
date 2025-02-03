@@ -6,7 +6,6 @@ import App from './App.jsx'
 import Signup from './components/Signup.jsx';
 import Login from './components/Login.jsx';
 import Cart from './components/Cart.jsx';
-import Cookies from 'js-cookie';
 
 export const ShopContext = createContext(null);
 
@@ -39,13 +38,14 @@ const Main = () => {
   ]);
 
   useEffect(() => {
-    const cookie = Cookies.get('user-data');
-    if(cookie) {
-      const data = JSON.parse(Cookies.get('user-data'));
+    fetch('http://localhost:8080/account', {
+      credentials: 'include'
+    }).then(res => res.json())
+    .then(data => {
       setAccount(data.user);
       setCart(data.cart);
       setCartContents(data.contents);
-    }
+    }).catch(err => console.log(err));
   }, []);
 
   return (

@@ -90,6 +90,19 @@ async function addToCart(data) {
     }
 }
 
+async function removeFromCart(data) {
+    if(data.quantity === -1) {
+        const sql = `DELETE FROM Cart_Items WHERE product_id = ?`;
+        await runAsync(sql, [data.product_id]);
+        return;
+    }
+    else {
+        const sql = `UPDATE Cart_Items SET quantity = ? WHERE product_id = ?`;
+        await runAsync(sql, [data.quantity, data.product_id]);
+        return;
+    }
+}
+
 async function getCartContents(cart_id) {
     const sql = `SELECT p.product_id, p.name, p.price, p.image_url, ci.quantity, (p.price * ci.quantity) AS total_price 
                 FROM Products p 
@@ -115,4 +128,4 @@ function createAccount(data) {
 
 
 module.exports = { getProducts, getCategories, createAccount, getUserByUsername, 
-                getUserByEmail, getCartByUserId, addToCart, getCartContents };
+                getUserByEmail, getCartByUserId, addToCart, getCartContents, removeFromCart };

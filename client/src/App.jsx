@@ -5,7 +5,6 @@ import Filters from './components/Filters';
 import Header from './components/Header';
 import Search from './components/Search';
 import { ShopContext } from './main';
-import Cookies from "js-cookie";
 
 function App() {
   const [products, setProducts] = useState([]);

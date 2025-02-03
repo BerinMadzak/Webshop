@@ -48,7 +48,9 @@ export default function Product({product, handleAdd}) {
                     <button onClick={addToCart}>+</button>
                 </div>
                 <button onClick={handleAddToCart}>Add To Cart</button>
-                {cartContents && <p className="product-current">Currently in cart: {getCartCount()}</p>}
+                {cartContents && getCartCount() > 0 ? 
+                    <p className="product-current">Currently in cart: {getCartCount()}</p>
+                    : <p className="product-current"></p>}
             </div>
         </div>
     );

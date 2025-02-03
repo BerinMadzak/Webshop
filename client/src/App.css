@@ -92,6 +92,7 @@ button:focus {
 .product-current {
   font-style: italic;
   font-size: 0.85rem;
+  height: 1rem;
 }
 
 .cart-table {

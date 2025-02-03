@@ -161,6 +161,13 @@ button:focus {
   font-size: 2rem;
 }
 
+button[disabled], button[disabled]:hover, button[disabled]:focus, button[disabled]:focus-visible {
+  outline: none;
+  border: none;
+  cursor: default;
+  border: 0px;
+}
+
 .cart-back {
   position: absolute;
   top: 10px;

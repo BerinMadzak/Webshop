@@ -126,6 +126,24 @@ function createAccount(data) {
     });
 }
 
+async function createOrder(data) {
+    const sql = `INSERT INTO Orders (user_id, total_price) VALUES (?, ?)`;
+    const result = await runAsync(sql, [data.user_id, data.total_price]);
+    return result.lastID;
+}
+
+async function addItemToOrder(data) {
+    const sql = `INSERT INTO Order_Items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)`;
+    const result = runAsync(sql, [data.order_id, data.product_id, data.quantity, data.price]);
+    return result.lastID;
+}
+
+async function clearCart(cart_id) {
+    const sql = `DELETE FROM Cart_Items WHERE cart_id = ?`;
+    await runAsync(sql, [cart_id]);
+}
+
 
 module.exports = { getProducts, getCategories, createAccount, getUserByUsername, 
-                getUserByEmail, getCartByUserId, addToCart, getCartContents, changeItemQuantity };
+                getUserByEmail, getCartByUserId, addToCart, getCartContents, changeItemQuantity,
+                createOrder, addItemToOrder, clearCart };

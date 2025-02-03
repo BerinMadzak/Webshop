@@ -3,7 +3,10 @@ const { body, validationResult } = require('express-validator');
 const cors = require("cors");
 const { getProducts, getCategories, createAccount, 
     getUserByUsername, getUserByEmail, getCartByUserId, getCartContents, 
-    addToCart, changeItemQuantity } = require("./data/queries");
+    addToCart, changeItemQuantity, 
+    createOrder,
+    addItemToOrder,
+    clearCart} = require("./data/queries");
 const bcrypt = require("bcryptjs");
 const cookieParser = require("cookie-parser");
 const jwt = require('jsonwebtoken');
@@ -43,6 +46,24 @@ app.post("/add", async(req, res) => {
     await addToCart(data);
     const contents = await getCartContents(data.cart_id);
     res.status(200).json( contents );
+});
+
+app.post("/order", async(req, res) => {
+    const data = req.body;
+    const order_id = await createOrder(data);
+    for(let i = 0; i < data.products.length; i++) {
+        const p = data.products[i];
+        const productData = {
+            order_id: order_id,
+            product_id: p.product_id,
+            quantity: p.quantity, 
+            price: p.price
+        };
+        await addItemToOrder(productData);
+    }
+    await clearCart(data.user_id);
+    const contents = await getCartContents(data.cart_id);
+    res.status(200).json({ message: "Order created", contents: contents});
 });
 
 app.post("/quantity", async(req, res) => {

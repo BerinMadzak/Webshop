@@ -1,13 +1,5 @@
 export default function CartProduct({ product, actions })
 {
-    function handleIncrease() {
-
-    }
-
-    function handleReduce() {
-
-    }
-
     return (
         <tr className="cart-product">
             <td>
@@ -18,9 +10,9 @@ export default function CartProduct({ product, actions })
             </td>
             <td>
                 <div className="cart-product-count">
-                    <i className="fa-solid fa-minus" onClick={handleReduce}></i>
+                    <i className="fa-solid fa-minus" onClick={() => actions.handleReduce(product.product_id, product.quantity)}></i>
                     <p>{product.quantity}</p>
-                    <i className="fa-solid fa-plus" onClick={handleIncrease}></i>
+                    <i className="fa-solid fa-plus" onClick={() => actions.handleIncrease(product.product_id, product.quantity)}></i>
                 </div>
             </td>
             <td>

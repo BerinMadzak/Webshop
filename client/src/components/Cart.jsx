@@ -9,14 +9,54 @@ export default function Cart()
     const navigate = useNavigate();
 
     function handleDelete(product_id) {
-        if(!account) navigate('/login', { state: { msg: 'Please login to remove items to cart' } });
+        if(!account) navigate('/login', { state: { msg: 'Please login to view cart' } });
         setLoading(true);
         const data = {
             product_id: product_id,
-            quantity: -1,
+            quantity: 0,
             cart_id: cart.cart_id
         };
-        fetch(`http://localhost:8080/remove`, {
+        fetch(`http://localhost:8080/quantity`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(res => res.json()).then(data => {
+            setCartContents(data);
+        }).catch(error => console.error(error))
+        .finally(setLoading(false));
+    }
+
+    function handleReduce(product_id, quantity) {
+        if(!account) navigate('/login', { state: { msg: 'Please login to view cart' } });
+        setLoading(true);
+        const data = {
+            product_id: product_id,
+            quantity: quantity-1,
+            cart_id: cart.cart_id
+        };
+        fetch(`http://localhost:8080/quantity`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(res => res.json()).then(data => {
+            setCartContents(data);
+        }).catch(error => console.error(error))
+        .finally(setLoading(false));
+    }
+
+    function handleIncrease(product_id, quantity) {
+        if(!account) navigate('/login', { state: { msg: 'Please login to view cart' } });
+        setLoading(true);
+        const data = {
+            product_id: product_id,
+            quantity: quantity+1,
+            cart_id: cart.cart_id
+        };
+        fetch(`http://localhost:8080/quantity`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -29,7 +69,9 @@ export default function Cart()
     }
 
     const actions = {
-        handleDelete
+        handleDelete,
+        handleReduce,
+        handleIncrease
     }
 
     return (

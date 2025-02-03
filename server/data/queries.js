@@ -90,8 +90,8 @@ async function addToCart(data) {
     }
 }
 
-async function removeFromCart(data) {
-    if(data.quantity === -1) {
+async function changeItemQuantity(data) {
+    if(data.quantity === 0) {
         const sql = `DELETE FROM Cart_Items WHERE product_id = ?`;
         await runAsync(sql, [data.product_id]);
         return;
@@ -128,4 +128,4 @@ function createAccount(data) {
 
 
 module.exports = { getProducts, getCategories, createAccount, getUserByUsername, 
-                getUserByEmail, getCartByUserId, addToCart, getCartContents, removeFromCart };
+                getUserByEmail, getCartByUserId, addToCart, getCartContents, changeItemQuantity };

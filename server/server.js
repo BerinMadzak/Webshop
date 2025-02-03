@@ -1,7 +1,9 @@
 const express = require("express");
 const { body, validationResult } = require('express-validator');
 const cors = require("cors");
-const { getProducts, getCategories, createAccount, getUserByUsername, getUserByEmail, getCartByUserId, getCartContents, addToCart, removeFromCart } = require("./data/queries");
+const { getProducts, getCategories, createAccount, 
+    getUserByUsername, getUserByEmail, getCartByUserId, getCartContents, 
+    addToCart, changeItemQuantity } = require("./data/queries");
 const bcrypt = require("bcryptjs");
 const cookieParser = require("cookie-parser");
 const jwt = require('jsonwebtoken');
@@ -43,10 +45,9 @@ app.post("/add", async(req, res) => {
     res.status(200).json( contents );
 });
 
-app.post("/remove", async(req, res) => {
+app.post("/quantity", async(req, res) => {
     const data = req.body;
-    console.log(data);
-    await removeFromCart(data);
+    await changeItemQuantity(data);
     const contents = await getCartContents(data.cart_id);
     res.status(200).json( contents );
 });

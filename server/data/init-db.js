@@ -59,7 +59,7 @@ const createTablesQuery = `
     CREATE TABLE IF NOT EXISTS Orders (
         order_id INTEGER PRIMARY KEY AUTOINCREMENT,
         user_id iNTEGER,
-        total_amount REAL NOT NULL,
+        total_price REAL NOT NULL,
         order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES Users(user_id)
     );

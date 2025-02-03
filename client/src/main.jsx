@@ -40,8 +40,12 @@ const Main = () => {
   useEffect(() => {
     fetch('http://localhost:8080/account', {
       credentials: 'include'
-    }).then(res => res.json())
+    }).then(res => {
+      if(res.ok) return res.json();
+      else throw new Error("No token");
+    })
     .then(data => {
+      console.log(data);
       setAccount(data.user);
       setCart(data.cart);
       setCartContents(data.contents);

@@ -10,7 +10,7 @@ function App() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
 
-  const { setCartContents } = useContext(ShopContext);
+  const { setCartContents, setLoading } = useContext(ShopContext);
 
   useEffect(() => {
     loadProducts("All", "");
@@ -30,6 +30,7 @@ function App() {
   }
 
   function handleAdd(data) {
+    setLoading(true);
     fetch(`http://localhost:8080/add`, {
       method: 'POST',
       headers: {
@@ -38,7 +39,8 @@ function App() {
       body: JSON.stringify(data)
     }).then(res => res.json()).then(data => {
       setCartContents(data);
-    }).catch(error => console.error(error));
+    }).catch(error => console.error(error))
+    .finally(setLoading(false));
   }
 
   return (

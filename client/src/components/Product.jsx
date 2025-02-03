@@ -33,7 +33,7 @@ export default function Product({product, handleAdd}) {
     function getCartCount() {
         const result = cartContents.find(p => p.product_id === product.product_id);
         if(result) return result.quantity;
-        else return
+        else return 0;
     }
 
     return (

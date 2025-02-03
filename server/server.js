@@ -119,6 +119,15 @@ app.post("/login", [
     res.status(200).json({ message: 'Succesful Login', user: user, cart: cart, contents: contents });
 });
 
+app.post('/logout', (req, res) => {
+    res.clearCookie('token', {
+        httpOnly: true,
+        //secure: process.env.NODE_ENV === 'production',
+    });
+
+    res.status(200).json({ message: 'Logged out' });
+});
+
 app.get("/account", async (req, res) => {
     const token = req.cookies.token;
 

@@ -7,6 +7,10 @@ export default function Header() {
     const naviagte = useNavigate();
 
     function handleSignOut() {
+        fetch('http://localhost:8080/logout', {
+            method: 'POST',
+            credentials: 'include'
+        });
         setAccount(null);
         setCart(null);
         setCartContents(null);

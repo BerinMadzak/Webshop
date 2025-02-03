@@ -224,6 +224,10 @@ button:focus {
   width: 200px;
 }
 
+.cart-container, .cart-product i {
+  cursor: pointer;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

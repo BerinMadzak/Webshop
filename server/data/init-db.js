@@ -2,6 +2,8 @@ const db = require("./db")
 
 // Queries
 const dropTablesQuery = `
+    DROP TABLE IF EXISTS Order_Items;
+    DROP TABLE IF EXISTS Orders;
     DROP TABLE IF EXISTS Cart_Items;
     DROP TABLE IF EXISTS Carts;
     DROP TABLE IF EXISTS Users;
@@ -51,6 +53,24 @@ const createTablesQuery = `
         product_id INTEGER,
         quantity INTEGER NOT NULL,
         FOREIGN KEY (cart_id) REFERENCES Carts(cart_id),
+        FOREIGN KEY (product_id) REFERENCES Products(product_id)
+    );
+
+    CREATE TABLE IF NOT EXISTS Orders (
+        order_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id iNTEGER,
+        total_amount REAL NOT NULL,
+        order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES Users(user_id)
+    );
+
+    CREATE TABLE IF NOT EXISTS Order_Items (
+        order_item_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        order_id INTEGER,
+        product_id INTEGER,
+        quantity INTEGER NOT NULL,
+        price REAL NOT NULL,
+        FOREIGN KEY (order_id) REFERENCES Orders(order_id),
         FOREIGN KEY (product_id) REFERENCES Products(product_id)
     );
 `

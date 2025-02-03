@@ -6,10 +6,12 @@ import App from './App.jsx'
 import Signup from './components/Signup.jsx';
 import Login from './components/Login.jsx';
 import Cart from './components/Cart.jsx';
+import Loading from './components/Loading.jsx';
 
 export const ShopContext = createContext(null);
 
 const Main = () => {
+  const [loading, setLoading] = useState(false);
   const [account, setAccount] = useState(null);
   const [cart, setCart] = useState(null);
   const [cartContents, setCartContents] = useState(null);
@@ -54,7 +56,8 @@ const Main = () => {
 
   return (
     <StrictMode>
-      <ShopContext.Provider value={{ account, setAccount, cart, setCart, cartContents, setCartContents }}>
+      <ShopContext.Provider value={{ account, setAccount, cart, setCart, cartContents, setCartContents, setLoading }}>
+        <Loading loading={loading}/>
         <RouterProvider router={router} />
       </ShopContext.Provider>
     </StrictMode>

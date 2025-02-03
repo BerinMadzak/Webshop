@@ -5,13 +5,12 @@ import { useNavigate } from "react-router-dom";
 
 export default function Cart()
 {
-    const { cartContents, account, cart, setCartContents } = useContext(ShopContext);
+    const { cartContents, account, cart, setCartContents, setLoading } = useContext(ShopContext);
     const navigate = useNavigate();
 
     function handleDelete(product_id) {
-        console.log("1");
         if(!account) navigate('/login', { state: { msg: 'Please login to remove items to cart' } });
-        console.log("2");
+        setLoading(true);
         const data = {
             product_id: product_id,
             quantity: -1,
@@ -25,7 +24,8 @@ export default function Cart()
             body: JSON.stringify(data)
         }).then(res => res.json()).then(data => {
             setCartContents(data);
-        }).catch(error => console.error(error));
+        }).catch(error => console.error(error))
+        .finally(setLoading(false));
     }
 
     const actions = {

@@ -73,7 +73,7 @@ button:focus {
   font-style: italic;
 }
 
-.product-price::after {
+.product-price::after, .cart-total::after {
   content: " $";
   font-weight: bold;
 }
@@ -140,6 +140,25 @@ button:focus {
   width: 70px;
   height: 70px;
   padding: 0 20px;
+}
+
+.checkout {
+  background-color: #323232;
+  width: 30%;
+  justify-self: center;
+  padding-bottom: 30px;
+  margin-top: 30px;
+  border: 3px solid black;
+}
+
+.cart-total {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.order-button {
+  width: 200px;
+  font-size: 2rem;
 }
 
 .cart-back {

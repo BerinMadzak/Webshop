@@ -2,11 +2,16 @@ import { useContext } from "react";
 import { ShopContext } from "../main";
 import CartProduct from "./CartProduct";
 import { useNavigate } from "react-router-dom";
+import Checkout from "./Checkout";
 
 export default function Cart()
 {
     const { cartContents, account, cart, setCartContents, setLoading } = useContext(ShopContext);
     const navigate = useNavigate();
+
+    function totalPrice() {
+        return cartContents.reduce((accumulator, current) => accumulator + current.total_price, 0);
+    }
 
     function handleDelete(product_id) {
         if(!account) navigate('/login', { state: { msg: 'Please login to view cart' } });
@@ -94,6 +99,7 @@ export default function Cart()
                     }
                 </tbody>
             </table>
+            <Checkout total={totalPrice().toFixed(2)}/>
         </div>
     );
 }

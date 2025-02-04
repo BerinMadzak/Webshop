@@ -161,6 +161,16 @@ button:focus {
   font-size: 2rem;
 }
 
+.order {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  width: 100%;
+  padding: 20px;
+  background-color: #434343;
+  border: 5px solid black;
+}
+
 button[disabled], button[disabled]:hover, button[disabled]:focus, button[disabled]:focus-visible {
   outline: none;
   border: none;
@@ -205,7 +215,7 @@ button[disabled], button[disabled]:hover, button[disabled]:focus, button[disable
   display: inline-block;
 }
 
-.cart-icon {
+.icon {
   font-size: 2rem;
 }
 
@@ -250,7 +260,7 @@ button[disabled], button[disabled]:hover, button[disabled]:focus, button[disable
   width: 200px;
 }
 
-.cart-container, .cart-product i {
+.cart-container, .icon {
   cursor: pointer;
 }
 

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Header() {
     const { account, setAccount, setCart, cartContents, setCartContents } = useContext(ShopContext);
-    const naviagte = useNavigate();
+    const navigate = useNavigate();
 
     function handleSignOut() {
         fetch('http://localhost:8080/logout', {
@@ -29,8 +29,8 @@ export default function Header() {
         <div className="header">
             {!account && 
                 <div className="flex-gap">
-                    <button onClick={() => naviagte('/login')}>Login</button>
-                    <button onClick={() => naviagte('/signup')}>Register</button>
+                    <button onClick={() => navigate('/login')}>Login</button>
+                    <button onClick={() => navigate('/signup')}>Register</button>
                 </div>
             }
             {account &&
@@ -40,9 +40,12 @@ export default function Header() {
                 </div>
             }
             {account &&            
-                <div className="cart-container" onClick={() => naviagte('/cart')}>
-                    <i className="cart-icon fa-solid fa-cart-shopping"></i>
-                    <p className="cart-count">{cartContentCount()}</p>
+                <div className="flex-gap">
+                    <i className="icon fa-solid fa-clipboard" onClick={() => navigate('/orders')}></i>
+                    <div className="cart-container" onClick={() => navigate('/cart')}>
+                        <i className="icon fa-solid fa-cart-shopping"></i>
+                        <p className="cart-count">{cartContentCount()}</p>
+                    </div>
                 </div>
             }
         </div>

@@ -143,7 +143,15 @@ async function clearCart(cart_id) {
     await runAsync(sql, [cart_id]);
 }
 
+async function getOrders(user_id) {
+    const sql = `SELECT o.order_id, o.total_price, o.order_date, SUM(oi.quantity) AS total_quantity FROM Orders o
+    LEFT JOIN order_items oi ON o.order_id = oi.order_id WHERE o.user_id = ?
+    GROUP BY o.order_id, o.total_price, o.order_date
+    ORDER BY order_date`;
+    const result = await getAll(sql, [user_id]);
+    return result;
+}
 
 module.exports = { getProducts, getCategories, createAccount, getUserByUsername, 
                 getUserByEmail, getCartByUserId, addToCart, getCartContents, changeItemQuantity,
-                createOrder, addItemToOrder, clearCart };
+                createOrder, addItemToOrder, clearCart, getOrders };

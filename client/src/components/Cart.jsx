@@ -113,6 +113,7 @@ export default function Cart()
                         <th></th>
                         <th>Name</th>
                         <th>Amount</th>
+                        <th>Price</th>
                         <th>Total Price</th>
                         <th className="small-col"></th>
                     </tr>

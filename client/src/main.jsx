@@ -11,6 +11,8 @@ import OrderList from './components/OrderList.jsx';
 import OrderDetails from './components/OrderDetails.jsx';
 import Account from './components/Account.jsx';
 import Admin from './components/Admin.jsx';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const ShopContext = createContext(null);
 
@@ -73,9 +75,22 @@ const Main = () => {
     }).catch(err => console.log(err));
   }, []);
 
+  function notification(message) {
+    console.log(message);
+    toast(message);
+  }
+
   return (
     <StrictMode>
-      <ShopContext.Provider value={{ account, setAccount, cart, setCart, cartContents, setCartContents, setLoading }}>
+      <ShopContext.Provider value={{ account, setAccount, cart, setCart, cartContents, setCartContents, setLoading, notification }}>
+        <ToastContainer 
+          position='top-right'
+          autoClose={2000}
+          hideProgressBar
+          newestOnTop
+          closeButton
+          style={{ top: '70px' }}
+        />
         <Loading loading={loading}/>
         <RouterProvider router={router} />
       </ShopContext.Provider>

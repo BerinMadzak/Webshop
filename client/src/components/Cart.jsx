@@ -3,10 +3,11 @@ import { ShopContext } from "../main";
 import CartProduct from "./CartProduct";
 import { useNavigate } from "react-router-dom";
 import Checkout from "./Checkout";
+import { toast } from "react-toastify";
 
 export default function Cart()
 {
-    const { cartContents, account, cart, setCartContents, setLoading } = useContext(ShopContext);
+    const { cartContents, account, cart, setCartContents, setLoading, notification } = useContext(ShopContext);
     const navigate = useNavigate();
 
     function totalPrice() {
@@ -96,8 +97,8 @@ export default function Cart()
             body: JSON.stringify(data)
         }).then(res => res.json())
         .then(data => {
-            console.log(data.message);
             setCartContents(data.contents);
+            notification(data.message);
         })
         .catch(error => console.error(error))
         .finally(setLoading(false));

@@ -10,7 +10,7 @@ function App() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
 
-  const { setCartContents, setLoading } = useContext(ShopContext);
+  const { setCartContents, setLoading, notification } = useContext(ShopContext);
 
   useEffect(() => {
     loadProducts("All", "");
@@ -38,7 +38,8 @@ function App() {
       },
       body: JSON.stringify(data)
     }).then(res => res.json()).then(data => {
-      setCartContents(data);
+      setCartContents(data.contents);
+      notification(data.message);
     }).catch(error => console.error(error))
     .finally(setLoading(false));
   }

@@ -56,10 +56,17 @@ app.get("/order/:order_id", async (req, res) => {
 });
 
 app.post("/add", async(req, res) => {
-    const data = req.body;
-    await addToCart(data);
-    const contents = await getCartContents(data.cart_id);
-    res.status(200).json( contents );
+        const data = req.body;
+    try {
+        await addToCart(data);
+        const contents = await getCartContents(data.cart_id);
+        res.status(200).json( { 
+            contents: contents, 
+            message: `Added ${contents.find(el => el.product_id === data.product_id).name} x${data.quantity} to cart`} 
+        );
+    } catch(err) {
+        res.status(500).json({ message: err.message });
+    }
 });
 
 app.post("/order", async(req, res) => {

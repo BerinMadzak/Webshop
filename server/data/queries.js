@@ -152,6 +152,14 @@ async function getOrders(user_id) {
     return result;
 }
 
+async function getOrderById(order_id) {
+    const sql = `SELECT oi.product_id, oi.price, oi.quantity, oi.quantity * oi.price AS total_price, p.name, p.image_url
+    FROM order_items oi JOIN products p ON oi.product_id = p.product_id
+    WHERE oi.order_id = ?`;
+    const result = await getAll(sql, [order_id]);
+    return result;
+}
+
 module.exports = { getProducts, getCategories, createAccount, getUserByUsername, 
                 getUserByEmail, getCartByUserId, addToCart, getCartContents, changeItemQuantity,
-                createOrder, addItemToOrder, clearCart, getOrders };
+                createOrder, addItemToOrder, clearCart, getOrders, getOrderById };

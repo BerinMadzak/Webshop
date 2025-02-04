@@ -7,7 +7,8 @@ const { getProducts, getCategories, createAccount,
     createOrder,
     addItemToOrder,
     clearCart,
-    getOrders} = require("./data/queries");
+    getOrders,
+    getOrderById} = require("./data/queries");
 const bcrypt = require("bcryptjs");
 const cookieParser = require("cookie-parser");
 const jwt = require('jsonwebtoken');
@@ -46,6 +47,12 @@ app.get("/orders/:user_id", async (req, res) => {
     const user_id = req.params['user_id'];
     const orders = await getOrders(user_id);
     res.json ( orders );
+});
+
+app.get("/order/:order_id", async (req, res) => {
+    const order_id = req.params['order_id'];
+    const order = await getOrderById(order_id);
+    res.json ( order );
 });
 
 app.post("/add", async(req, res) => {

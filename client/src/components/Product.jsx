@@ -47,7 +47,7 @@ export default function Product({product, handleAdd}) {
                     <input type="text" min="0" step="1" value={count} onChange={handleChange}/>
                     <button onClick={addToCart}>+</button>
                 </div>
-                <button onClick={handleAddToCart}>Add To Cart</button>
+                <button onClick={handleAddToCart} disabled={count === 0}>Add To Cart</button>
                 {cartContents && getCartCount() > 0 ? 
                     <p className="product-current">Currently in cart: {getCartCount()}</p>
                     : <p className="product-current"></p>}

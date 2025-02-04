@@ -89,6 +89,7 @@ export default function Cart()
             products: cartContents,
             cart_id: cart.cart_id
         };
+        setLoading(true);
         fetch(`http://localhost:8080/order`, {
             method: 'POST',
             headers: {

@@ -9,6 +9,8 @@ import Cart from './components/Cart.jsx';
 import Loading from './components/Loading.jsx';
 import OrderList from './components/OrderList.jsx';
 import OrderDetails from './components/OrderDetails.jsx';
+import Account from './components/Account.jsx';
+import Admin from './components/Admin.jsx';
 
 export const ShopContext = createContext(null);
 
@@ -42,6 +44,14 @@ const Main = () => {
     {
       path: "orders/:orderId",
       element: account !== null ? <OrderDetails /> : <Navigate to="/" />
+    },
+    {
+      path: "account",
+      element: account !== null ? <Account /> : <Navigate to="/" />
+    },
+    {
+      path: "admin",
+      element: account !== null && account.admin ? <Admin /> : <Navigate to="/" />
     },
     {
       path: '*',

@@ -38,6 +38,7 @@ const createTablesQuery = `
         last_name TEXT NOT NULL,
         phone_number TEXT NOT NULL,
         address TEXT NOT NULL,
+        admin BOOLEAN DEFAULT false,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
@@ -108,9 +109,9 @@ const addDataQuery = `
         moisture wicking fabric which helps to keep moisture away, Soft Lightweight Fabric with comfortable V-neck collar and a slimmer fit, delivers a sleek, more feminine silhouette and Added Comfort", 7.95, "https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg"),
         (4, "DANVOUY Womens T Shirt Casual Cotton Short", "95%Cotton,5%Spandex, Features: Casual, Short Sleeve, Letter Print,V-Neck,Fashion Tees, The fabric is soft and has some stretch., Occasion: Casual/Office/Beach/School/Home/Street. Season: Spring,Summer,Autumn,Winter.", 12.99, "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg"); 
         
-        INSERT INTO Users (username, email, password_hash, first_name, last_name, phone_number, address)
+        INSERT INTO Users (username, email, password_hash, first_name, last_name, phone_number, address, admin)
         VALUES 
-            ("Test", "test@test.com", "$2a$10$RmN6YXYTjxGB4FqzWUA9ouY2TC.0XLkB8oMXm1MZd.bpJ/kTtXaci", "First_Name", "Last_Name", "12345678", "Test Address");
+            ("Test", "test@test.com", "$2a$10$RmN6YXYTjxGB4FqzWUA9ouY2TC.0XLkB8oMXm1MZd.bpJ/kTtXaci", "First_Name", "Last_Name", "12345678", "Test Address", true);
 `
 
 // Query Execution

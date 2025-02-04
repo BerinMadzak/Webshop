@@ -57,7 +57,6 @@ const Main = () => {
       else throw new Error("No token");
     })
     .then(data => {
-      console.log(data);
       setAccount(data.user);
       setCart(data.cart);
       setCartContents(data.contents);

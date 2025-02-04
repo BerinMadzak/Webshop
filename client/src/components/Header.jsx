@@ -18,7 +18,6 @@ export default function Header() {
 
     function cartContentCount() {
         let count = 0;
-        console.log(cartContents);
         for(let i = 0; i < cartContents.length; i++) {
             count += cartContents[i].quantity;
         }

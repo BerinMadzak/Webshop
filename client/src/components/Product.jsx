@@ -3,7 +3,7 @@ import { ShopContext } from "../main";
 import { useNavigate } from "react-router-dom";
 
 export default function Product({product, handleAdd}) {
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(1);
     const { account } = useContext(ShopContext);
     const navigate = useNavigate();
 
@@ -14,14 +14,14 @@ export default function Product({product, handleAdd}) {
     }
 
     function removeFromCart() {
-        setCount(prev => prev > 0 ? prev - 1 : prev);
+        setCount(prev => prev > 1 ? prev - 1 : prev);
     }
 
     function handleChange(e) {
         const value = e.target.value;
         if(value.toString().includes('.') || value.toString().includes('-')) return;
         
-        if(value === '') setCount(0);
+        if(value === '') setCount(1);
         else setCount(value);
     }
 
@@ -44,10 +44,10 @@ export default function Product({product, handleAdd}) {
             <div className="product-cart">
                 <div className="product-count">
                     <button onClick={removeFromCart}>-</button>
-                    <input type="text" min="0" step="1" value={count} onChange={handleChange}/>
+                    <input type="text" min="1" step="1" value={count} onChange={handleChange}/>
                     <button onClick={addToCart}>+</button>
                 </div>
-                <button onClick={handleAddToCart} disabled={count === 0}>Add To Cart</button>
+                <button onClick={handleAddToCart}>Add To Cart</button>
                 {cartContents && getCartCount() > 0 ? 
                     <p className="product-current">Currently in cart: {getCartCount()}</p>
                     : <p className="product-current"></p>}

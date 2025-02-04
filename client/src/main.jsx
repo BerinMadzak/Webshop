@@ -76,8 +76,7 @@ const Main = () => {
   }, []);
 
   function notification(message) {
-    console.log(message);
-    toast(message);
+    toast(<div dangerouslySetInnerHTML={{ __html: message}}></div>);
   }
 
   return (

@@ -62,7 +62,7 @@ app.post("/add", async(req, res) => {
         const contents = await getCartContents(data.cart_id);
         res.status(200).json( { 
             contents: contents, 
-            message: `Added ${contents.find(el => el.product_id === data.product_id).name} x${data.quantity} to cart`} 
+            message: `Added <span class="special-text">${contents.find(el => el.product_id === data.product_id).name} x${data.quantity}</span> to cart`} 
         );
     } catch(err) {
         res.status(500).json({ message: err.message });

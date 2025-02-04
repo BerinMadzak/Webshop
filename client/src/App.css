@@ -30,6 +30,11 @@ button:focus {
   align-items: center;
 }
 
+.special-text {
+  color: red;
+  font-weight: bold;
+}
+
 .header {
   position: fixed;
   box-sizing: border-box;

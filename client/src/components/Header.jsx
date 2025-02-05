@@ -40,6 +40,7 @@ export default function Header() {
             }
             {account &&            
                 <div className="flex-gap">
+                    <i className="icon fa-solid fa-house" onClick={() => navigate('/')}></i>
                     {account.admin && <i className="icon fa-solid fa-wrench" onClick={() => navigate('/admin')}></i>}
                     <i className="icon fa-solid fa-user" onClick={() => navigate('/account')}></i>
                     <i className="icon fa-solid fa-clipboard" onClick={() => navigate('/orders')}></i>

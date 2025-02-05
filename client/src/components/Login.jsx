@@ -45,7 +45,6 @@ export default function Login() {
                     body: JSON.stringify(userData),
                     credentials: 'include'
                 });
-                console.log("Hdaw");
 
                 if(!response.ok) {
                     const errorData = await response.json();

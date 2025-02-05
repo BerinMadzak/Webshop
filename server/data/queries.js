@@ -126,6 +126,18 @@ function createAccount(data) {
     });
 }
 
+function changePassword(data) {
+    const sql = `UPDATE Users SET password_hash = ? WHERE user_id = ?`;
+
+    bcrypt.hash(data.password, 10, async(err, hashedPassword) => {
+        if(err) return console.error(err.message);
+
+        db.run(sql, [hashedPassword, data.user_id], (err) => {
+            if(err) return console.error(err.message);
+        });
+    });
+}
+
 async function createOrder(data) {
     const sql = `INSERT INTO Orders (user_id, total_price) VALUES (?, ?)`;
     const result = await runAsync(sql, [data.user_id, data.total_price]);
@@ -162,4 +174,4 @@ async function getOrderById(order_id) {
 
 module.exports = { getProducts, getCategories, createAccount, getUserByUsername, 
                 getUserByEmail, getCartByUserId, addToCart, getCartContents, changeItemQuantity,
-                createOrder, addItemToOrder, clearCart, getOrders, getOrderById };
+                createOrder, addItemToOrder, clearCart, getOrders, getOrderById, changePassword };

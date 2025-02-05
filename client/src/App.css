@@ -252,8 +252,15 @@ button[disabled], button[disabled]:hover, button[disabled]:focus, button[disable
   flex-direction: column;
   gap: 20px;
   align-items: center;
-  justify-content: center;
   height: 100vh;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+.center {
+  justify-content: center;
 }
 
 .signup-form > div > div {

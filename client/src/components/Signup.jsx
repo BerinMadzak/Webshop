@@ -88,7 +88,7 @@ export default function Signup() {
     );
 
     return (
-        <form className="signup-form" onSubmit={handleSubmit}>
+        <form className="signup-form center" onSubmit={handleSubmit}>
             <h1>Create Account</h1>
             <div>
                 <div>

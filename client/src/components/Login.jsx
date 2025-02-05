@@ -74,7 +74,7 @@ export default function Login() {
     };
 
     return (
-        <form className="signup-form" onSubmit={handleSubmit}>
+        <form className="signup-form center" onSubmit={handleSubmit}>
             <h1>Login</h1>
             {msg && <p>{msg.msg}</p>}
             <div>

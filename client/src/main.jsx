@@ -13,6 +13,7 @@ import Account from './components/Account.jsx';
 import Admin from './components/Admin.jsx';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Layout from './components/Layout.jsx';
 
 export const ShopContext = createContext(null);
 
@@ -25,39 +26,45 @@ const Main = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <App />
-    },
-    {
-      path: "signup",
-      element: account === null ? <Signup /> : <Navigate to="/" />
-    },
-    {
-      path: "login",
-      element: account === null ? <Login /> : <Navigate to="/" />
-    },
-    {
-      path: "cart",
-      element: account !== null ? <Cart /> : <Navigate to="/" />
-    },
-    {
-      path: "orders",
-      element: account !== null ? <OrderList /> : <Navigate to="/" />
-    },
-    {
-      path: "orders/:orderId",
-      element: account !== null ? <OrderDetails /> : <Navigate to="/" />
-    },
-    {
-      path: "account",
-      element: account !== null ? <Account /> : <Navigate to="/" />
-    },
-    {
-      path: "admin",
-      element: account !== null && account.admin ? <Admin /> : <Navigate to="/" />
+      element: <Layout />,
+      children: [
+        {
+          path: "/",
+          element: <App />
+        },
+        {
+          path: "signup",
+          element: account === null ? <Signup /> : <Navigate to="/" />
+        },
+        {
+          path: "login",
+          element: account === null ? <Login /> : <Navigate to="/" />
+        },
+        {
+          path: "cart",
+          element: account !== null ? <Cart /> : <Navigate to="/" />
+        },
+        {
+          path: "orders",
+          element: account !== null ? <OrderList /> : <Navigate to="/" />
+        },
+        {
+          path: "orders/:orderId",
+          element: account !== null ? <OrderDetails /> : <Navigate to="/" />
+        },
+        {
+          path: "account",
+          element: account !== null ? <Account /> : <Navigate to="/" />
+        },
+        {
+          path: "admin",
+          element: account !== null && account.admin ? <Admin /> : <Navigate to="/" />
+        },
+      ]
     },
     {
       path: '*',
-      element: <App />
+      element: <Layout />
     }
   ]);
 

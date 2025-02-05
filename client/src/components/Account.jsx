@@ -1,10 +1,8 @@
 import { useContext, useState } from "react";
 import { ShopContext } from "../main";
-import { useNavigate } from "react-router-dom";
 
 export default function Account() {
     const { account, setLoading, notification } = useContext(ShopContext);
-    const navigate = useNavigate();
 
     const [userData, setUserData] = useState({
         user_id: account.user_id,
@@ -75,7 +73,6 @@ export default function Account() {
 
     return (
         <div>
-            <button onClick={() => navigate('/')} className="back">Back</button>
             <h1>Account Information</h1>
             <div>
                 <p>Email: <span className="bold-text">{account.email}</span></p>

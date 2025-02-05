@@ -46,7 +46,6 @@ function App() {
 
   return (
     <div>
-      <Header />
       <Search onFiltersChange={onFiltersChange}/>
       <div className='menu'>
         <Filters categories={categories} onFiltersChange={onFiltersChange}/>

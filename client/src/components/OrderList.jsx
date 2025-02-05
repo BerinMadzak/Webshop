@@ -27,7 +27,6 @@ export default function OrderList() {
 
     return (
         <div>
-            <button onClick={() => navigate('/')} className="back">Back</button>
             <h1>Past Orders</h1>
             {orders &&
                 orders.map(order => <Order order={order} key={order.order_id} openDetails={openDetails}/>)

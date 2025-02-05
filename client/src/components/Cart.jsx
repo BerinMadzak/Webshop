@@ -107,7 +107,6 @@ export default function Cart()
 
     return (
         <div>
-            <button onClick={() => navigate('/')} className="back">Back</button>
             <h1>Cart</h1>
             <table className="cart-table">
                 <thead>

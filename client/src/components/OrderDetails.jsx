@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ShopContext } from "../main";
 import OrderProduct from "./OrderProduct";
 import { jsPDF } from 'jspdf';
@@ -10,8 +10,6 @@ export default function OrderDetails() {
     
     const { orderId } = useParams();
     const { account, setLoading } = useContext(ShopContext);
-
-    const navigate = useNavigate();
     
     function totalPrice() {
         return order.reduce((accumulator, current) => accumulator + current.total_price, 0);
@@ -74,7 +72,6 @@ export default function OrderDetails() {
 
     return (
         <div>
-            <button onClick={() => navigate('/orders')} className="back">Back</button>
             <div id="order-display">
                 <h1>Order #{orderId}</h1>
                 <table className="cart-table">

@@ -7,8 +7,8 @@ export default function Admin() {
         <div>
             <h1>Admin Dashboard</h1>
             <div className="admin-grid">
-                <button onClick={() => navigate('/admin/account')}>Add Product</button>
-                <button>Update Product</button>
+                <button onClick={() => navigate('/admin/product/add')}>Add Product</button>
+                <button onClick={() => navigate('/admin/product/update')}>Update Product</button>
                 <button>Delete Product</button>
                 <button>Add Category</button>
                 <button>Delete Category</button>

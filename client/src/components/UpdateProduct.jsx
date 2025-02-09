@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../main";
 
-export default function AddProduct() {
+export default function UpdateProduct() {
     const [productData, setProductData] = useState({
         name: '',
         category_id: '',
@@ -12,12 +12,24 @@ export default function AddProduct() {
 
     const [errors, setErrors] = useState({});
     const [categories, setCategories] = useState(null);
+    const [products, setProducts] = useState(null);
+    const [currentProduct, setCurrentProduct] = useState(null);
 
     const { setLoading, notification } = useContext(ShopContext);
     
     useEffect(() => {
         fetch('http://localhost:8080/categories').then(res => res.json()).then(json => setCategories(json));
+        fetch('http://localhost:8080/products').then(res => res.json()).then(json => {
+            setProduct(json[0]);
+            setProducts(json);
+        });
     }, []);
+
+    function updateProductList() {
+        fetch('http://localhost:8080/products').then(res => res.json()).then(json => {
+            setProducts(json);
+        });
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -26,6 +38,22 @@ export default function AddProduct() {
             [name]: value
         }));
     };
+
+    const handleProductChange = (e) => {
+        const product = products.find(p => p.product_id == e.target.value);
+        setProduct(product);
+    }
+
+    function setProduct(product) {
+        setCurrentProduct(product);
+        setProductData({
+            name: product.name,
+            category_id: product.category_id,
+            description: product.description,
+            price: product.price,
+            image_url: product.image_url
+        });
+    }
 
     const validate = () => {
         let errors = {};
@@ -44,7 +72,8 @@ export default function AddProduct() {
             try {
                 setLoading(true);
                 productData.category_id = document.getElementById("category_id").value;
-                const response = await fetch('http://localhost:8080/addProduct', {
+                productData.product_id = currentProduct.product_id;
+                const response = await fetch('http://localhost:8080/updateProduct', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -68,6 +97,7 @@ export default function AddProduct() {
 
                 const data = await response.json();
                 notification(data.message);
+                updateProductList();
                 console.log('Product added');
             } catch (error) {
                 console.error(error);
@@ -79,7 +109,12 @@ export default function AddProduct() {
 
     return (
         <form className="signup-form center" onSubmit={handleSubmit}>
-            <h1>Add Product</h1>
+            <h1>Update Product</h1>
+            <select onChange={handleProductChange}>
+                {products &&
+                    products.map(p => <option value={p.product_id} key={p.product_id}>{p.name}</option>)
+                }
+            </select>
             <div>
                 <div>
                     <label htmlFor="name">Name: </label>
@@ -91,7 +126,7 @@ export default function AddProduct() {
             <div>
                 <div>
                     <label htmlFor="category_id">Category: </label>
-                    <select name="category_id" id="category_id">
+                    <select name="category_id" id="category_id" value={productData.category_id} onChange={handleChange}>
                         {categories && 
                             categories.map(c => <option value={c.category_id} key={c.category_id}>{c.name}</option>)
                         }

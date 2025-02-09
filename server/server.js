@@ -10,7 +10,8 @@ const { getProducts, getCategories, createAccount,
     getOrders,
     getOrderById,
     changePassword,
-    addProduct} = require("./data/queries");
+    addProduct,
+    updateProduct} = require("./data/queries");
 const bcrypt = require("bcryptjs");
 const cookieParser = require("cookie-parser");
 const jwt = require('jsonwebtoken');
@@ -28,8 +29,8 @@ app.use(cors(corsOptions));
 const SECRET_KEY = 'TEMP KEY'; // Store in env later
 
 app.get("/products", async (req, res) => {
-    const category = req.query.category;
-    const search = req.query.search;
+    const category = req.query.category === undefined ? 'All' : req.query.category;
+    const search = req.query.search === undefined ? '' : req.query.search;
     const products = await getProducts(category, search);
     res.json( products );
 });
@@ -232,6 +233,22 @@ app.post("/addProduct", [
     addProduct(req.body);
     
     res.status(200).json({  message: `Added <span class="special-text">${req.body.name}</span> to database`} );
+});
+
+app.post("/updateProduct", [
+    body('name').notEmpty().withMessage('Name is required'),
+    body('price').notEmpty().withMessage('Price is required'),
+    body('image_url').notEmpty().withMessage("Image is required")
+], async (req, res) => {
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    updateProduct(req.body);
+    
+    res.status(200).json({  message: `Product updated`} );
 });
 
 app.listen(8080, () => {

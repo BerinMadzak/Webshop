@@ -32,6 +32,7 @@ async function getProducts(category, search) {
         sql += " name LIKE ?";
         params.push("%"+search+"%");
     }
+    sql += " ORDER BY name";
     const result = await getAll(sql, params);
     return result;
 }
@@ -181,7 +182,15 @@ function addProduct(data) {
     });
 }
 
+function updateProduct(data) {
+    const sql = `UPDATE Products SET category_id = ?, name= ?, description = ?, price = ?, image_url = ? WHERE product_id = ?`;
+
+    db.run(sql, [data.category_id, data.name, data.description, data.price, data.image_url, data.product_id], (err) => {
+        if(err) return console.error(err.message);
+    });
+}
+
 module.exports = { getProducts, getCategories, createAccount, getUserByUsername, 
                 getUserByEmail, getCartByUserId, addToCart, getCartContents, changeItemQuantity,
                 createOrder, addItemToOrder, clearCart, getOrders, getOrderById, changePassword,
-                addProduct};
+                addProduct, updateProduct};

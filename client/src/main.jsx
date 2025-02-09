@@ -15,6 +15,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from './components/Layout.jsx';
 import AddProduct from './components/AddProduct.jsx';
+import UpdateProduct from './components/UpdateProduct.jsx';
 
 export const ShopContext = createContext(null);
 
@@ -66,8 +67,12 @@ const Main = () => {
               element: <Admin />
             },
             {
-              path: "account",
+              path: "product/add",
               element: <AddProduct />
+            },
+            {
+              path: "product/update",
+              element: <UpdateProduct />
             }
           ]
         }

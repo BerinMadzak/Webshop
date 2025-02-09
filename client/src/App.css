@@ -284,6 +284,15 @@ button[disabled], button[disabled]:hover, button[disabled]:focus, button[disable
   margin-bottom: 20px;
 }
 
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+  width: 50%;
+  margin: 0 auto;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

@@ -74,8 +74,8 @@ export default function UpdateProduct() {
                 setLoading(true);
                 productData.category_id = document.getElementById("category_id").value;
                 productData.product_id = currentProduct.product_id;
-                const response = await fetch('http://localhost:8080/updateProduct', {
-                    method: 'POST',
+                const response = await fetch('http://localhost:8080/product', {
+                    method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
                     },

@@ -220,7 +220,7 @@ app.get("/account", async (req, res) => {
     })
 });
 
-app.post("/addProduct", [
+app.post("/product", [
     body('name').notEmpty().withMessage('Name is required'),
     body('price').notEmpty().withMessage('Price is required'),
     body('image_url').notEmpty().withMessage("Image is required")
@@ -236,7 +236,7 @@ app.post("/addProduct", [
     res.status(200).json({  message: `Added <span class="special-text">${req.body.name}</span> to database`} );
 });
 
-app.post("/updateProduct", [
+app.put("/product", [
     body('name').notEmpty().withMessage('Name is required'),
     body('price').notEmpty().withMessage('Price is required'),
     body('image_url').notEmpty().withMessage("Image is required")

@@ -248,7 +248,7 @@ button[disabled], button[disabled]:hover, button[disabled]:focus, button[disable
   flex-direction: column;
   gap: 20px;
   align-items: center;
-  height: 100vh;
+  height: 80%;
 }
 
 .bold-text {

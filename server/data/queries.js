@@ -172,6 +172,16 @@ async function getOrderById(order_id) {
     return result;
 }
 
+function addProduct(data) {
+    const sql = `INSERT INTO Products (category_id, name, description, price, image_url)
+                 VALUES(?, ?, ?, ?, ?)`;
+
+    db.run(sql, [data.category_id, data.name, data.description, data.price, data.image_url], (err) => {
+        if(err) return console.error(err.message);
+    });
+}
+
 module.exports = { getProducts, getCategories, createAccount, getUserByUsername, 
                 getUserByEmail, getCartByUserId, addToCart, getCartContents, changeItemQuantity,
-                createOrder, addItemToOrder, clearCart, getOrders, getOrderById, changePassword };
+                createOrder, addItemToOrder, clearCart, getOrders, getOrderById, changePassword,
+                addProduct};

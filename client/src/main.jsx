@@ -1,6 +1,6 @@
 import { createContext, StrictMode, useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, Outlet, RouterProvider } from "react-router-dom";
 import './index.css'
 import App from './App.jsx'
 import Signup from './components/Signup.jsx';
@@ -14,6 +14,7 @@ import Admin from './components/Admin.jsx';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from './components/Layout.jsx';
+import AddProduct from './components/AddProduct.jsx';
 
 export const ShopContext = createContext(null);
 
@@ -58,8 +59,18 @@ const Main = () => {
         },
         {
           path: "admin",
-          element: account !== null && account.admin ? <Admin /> : <Navigate to="/" />
-        },
+          element: account !== null && account.admin ? <Outlet /> : <Navigate to="/" />,
+          children: [
+            {
+              path: "/admin",
+              element: <Admin />
+            },
+            {
+              path: "account",
+              element: <AddProduct />
+            }
+          ]
+        }
       ]
     },
     {

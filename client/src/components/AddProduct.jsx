@@ -43,6 +43,7 @@ export default function AddProduct() {
         if(validate()) {
             try {
                 setLoading(true);
+                productData.category_id = document.getElementById("category_id").value;
                 const response = await fetch('http://localhost:8080/addProduct', {
                     method: 'POST',
                     headers: {

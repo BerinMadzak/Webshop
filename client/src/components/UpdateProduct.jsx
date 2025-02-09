@@ -25,8 +25,9 @@ export default function UpdateProduct() {
         });
     }, []);
 
-    function updateProductList() {
+    function updateProductList(refresh = false) {
         fetch('http://localhost:8080/products').then(res => res.json()).then(json => {
+            if(refresh) setProduct(json[0]);
             setProducts(json);
         });
     }
@@ -107,57 +108,118 @@ export default function UpdateProduct() {
         }
     };
 
+    async function handleDelete() {
+        toggleDialog();
+        try {
+            setLoading(true);
+            const pData = {
+                product_id: currentProduct.product_id,
+                name: currentProduct.name
+            };
+            const response = await fetch('http://localhost:8080/product', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(pData)
+            });
+
+            if(!response.ok) {
+                const errorData = await response.json();
+
+                if(errorData.errors.length > 0) {
+                    let errs = {};
+                    for(let i = 0; i < errorData.errors.length; i++) {
+                        errs[errorData.errors[i].path] = errorData.errors[i].msg;
+                    }
+                    console.log(errs);
+                    setErrors(errs);
+                }
+                throw new Error('Failed to delete');
+            }
+
+            const data = await response.json();
+            notification(data.message);
+            updateProductList(true);
+            console.log('Product deleted');
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    function toggleDialog() {
+        document.querySelector(".dialog-overlay").classList.toggle('hidden');
+
+        const dialog = document.querySelector(".delete-dialog");
+        if(!dialog.open) dialog.show();
+        else dialog.close();
+    }
+
     return (
-        <form className="signup-form center" onSubmit={handleSubmit}>
+        <div>
+            <div className="dialog-overlay hidden">
+                <dialog className="delete-dialog">
+                    <p>Are you sure you want to delete <span className="special-text">{currentProduct && currentProduct.name}</span>?</p>
+                    <form method="dialog">
+                        <button onClick={handleDelete}>Yes</button>
+                        <button onClick={toggleDialog}>No</button>
+                    </form>
+                </dialog>
+            </div>
             <h1>Update Product</h1>
             <select onChange={handleProductChange}>
                 {products &&
                     products.map(p => <option value={p.product_id} key={p.product_id}>{p.name}</option>)
                 }
             </select>
-            <div>
+            <form className="signup-form center" onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="name">Name: </label>
-                    <input type="text" id="name" name="name" value={productData.name} onChange={handleChange} />
+                    <div>
+                        <label htmlFor="name">Name: </label>
+                        <input type="text" id="name" name="name" value={productData.name} onChange={handleChange} />
+                    </div>
+                    {errors.name && <p>{errors.name}</p>}
                 </div>
-                {errors.name && <p>{errors.name}</p>}
-            </div>
 
-            <div>
                 <div>
-                    <label htmlFor="category_id">Category: </label>
-                    <select name="category_id" id="category_id" value={productData.category_id} onChange={handleChange}>
-                        {categories && 
-                            categories.map(c => <option value={c.category_id} key={c.category_id}>{c.name}</option>)
-                        }
-                    </select>
+                    <div>
+                        <label htmlFor="category_id">Category: </label>
+                        <select name="category_id" id="category_id" value={productData.category_id} onChange={handleChange}>
+                            {categories && 
+                                categories.map(c => <option value={c.category_id} key={c.category_id}>{c.name}</option>)
+                            }
+                        </select>
+                    </div>
                 </div>
-            </div>
 
-            <div>
                 <div>
-                    <label htmlFor="description">Description: </label>
-                    <textarea name="description" id="description" value={productData.description} onChange={handleChange}></textarea>
+                    <div>
+                        <label htmlFor="description">Description: </label>
+                        <textarea name="description" id="description" value={productData.description} onChange={handleChange}></textarea>
+                    </div>
                 </div>
-            </div>
 
-            <div>
                 <div>
-                    <label htmlFor="price">Price: </label>
-                    <input type="numer" min={0} id="price" name="price" value={productData.price} onChange={handleChange} />
+                    <div>
+                        <label htmlFor="price">Price: </label>
+                        <input type="numer" min={0} id="price" name="price" value={productData.price} onChange={handleChange} />
+                    </div>
+                    {errors.price && <p>{errors.price}</p>}
                 </div>
-                {errors.price && <p>{errors.price}</p>}
-            </div>
 
-            <div>
                 <div>
-                    <label htmlFor="image_url">Image URL: </label>
-                    <input type="text" id="image_url" name="image_url" value={productData.image_url} onChange={handleChange} />
+                    <div>
+                        <label htmlFor="image_url">Image URL: </label>
+                        <input type="text" id="image_url" name="image_url" value={productData.image_url} onChange={handleChange} />
+                    </div>
+                    {errors.image_url && <p>{errors.image_url}</p>}
                 </div>
-                {errors.image_url && <p>{errors.image_url}</p>}
-            </div>
 
-            <button type="submit">Add Product</button>
-        </form>
+                <button type="submit">Update Product</button>
+            </form>
+            <button className="delete-button" onClick={toggleDialog}>Delete product</button>
+        </div>
     );
 }

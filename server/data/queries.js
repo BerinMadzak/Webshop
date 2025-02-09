@@ -190,7 +190,15 @@ function updateProduct(data) {
     });
 }
 
+function deleteProduct(product_id) {
+    const sql = `DELETE FROM Products WHERE product_id = ?`;
+    
+    db.run(sql, [product_id], (err) => {
+        if(err) return console.error(err.message);
+    });
+}
+
 module.exports = { getProducts, getCategories, createAccount, getUserByUsername, 
                 getUserByEmail, getCartByUserId, addToCart, getCartContents, changeItemQuantity,
                 createOrder, addItemToOrder, clearCart, getOrders, getOrderById, changePassword,
-                addProduct, updateProduct};
+                addProduct, updateProduct, deleteProduct };

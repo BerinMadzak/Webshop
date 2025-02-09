@@ -249,6 +249,7 @@ button[disabled], button[disabled]:hover, button[disabled]:focus, button[disable
   gap: 20px;
   align-items: center;
   height: 80%;
+  margin: 40px 0;
 }
 
 .bold-text {
@@ -273,6 +274,40 @@ button[disabled], button[disabled]:hover, button[disabled]:focus, button[disable
 
 .signup-form > button {
   width: 200px;
+}
+
+.delete-button {
+  width: 200px;
+  background-color: #b03a25;
+}
+
+.delete-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  margin: 0;
+  overflow-y: hidden;
+}
+
+.delete-dialog button {
+  margin: 0 10px;
+}
+
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-y: hidden;
+  background-color: rgba(1, 1, 1, 0.7);
+}
+
+.hidden {
+  visibility: hidden ;
 }
 
 .cart-container, .icon, .order {

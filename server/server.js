@@ -11,7 +11,8 @@ const { getProducts, getCategories, createAccount,
     getOrderById,
     changePassword,
     addProduct,
-    updateProduct} = require("./data/queries");
+    updateProduct,
+    deleteProduct} = require("./data/queries");
 const bcrypt = require("bcryptjs");
 const cookieParser = require("cookie-parser");
 const jwt = require('jsonwebtoken');
@@ -249,6 +250,12 @@ app.post("/updateProduct", [
     updateProduct(req.body);
     
     res.status(200).json({  message: `Product updated`} );
+});
+
+app.delete("/product", async (req, res) => {
+    deleteProduct(req.body.product_id);
+
+    res.status(200).json( {message: `Deleted <span class="special-text">${req.body.name}</span> from database`});
 });
 
 app.listen(8080, () => {

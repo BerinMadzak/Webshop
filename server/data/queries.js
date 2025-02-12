@@ -198,7 +198,38 @@ function deleteProduct(product_id) {
     });
 }
 
+async function categoryExists(name) {
+    const sql = `SELECT * FROM Categories WHERE name = ?`;
+
+    const result = await getAll(sql, [name]);
+    if(result.length > 0) return true;
+    return false;
+}
+
+function addCategory(data) {
+    const sql = `INSERT INTO Categories (name) VALUES (?)`;
+    db.run(sql, [data.name], (err) => {
+        if(err) return console.error(err.message);
+    });
+}
+
+function updateCategory(data) {
+    const sql = `UPDATE Categories SET name = ? WHERE category_id = ?`;
+    db.run(sql, [data.name, data.category_id], (err) => {
+        if(err) return console.error(err.message);
+    });
+}
+
+function deleteCategory(category_id) {
+    const sql = `DELETE FROM Categories WHERE category_id = ?`;
+    db.run(sql, [category_id], (err) => {
+        if(err) return console.error(err.message);
+    });
+}
+
 module.exports = { getProducts, getCategories, createAccount, getUserByUsername, 
                 getUserByEmail, getCartByUserId, addToCart, getCartContents, changeItemQuantity,
                 createOrder, addItemToOrder, clearCart, getOrders, getOrderById, changePassword,
-                addProduct, updateProduct, deleteProduct };
+                addProduct, updateProduct, deleteProduct, categoryExists, addCategory, updateCategory,
+                deleteCategory
+            };

@@ -9,7 +9,7 @@ export default function Admin() {
             <div className="admin-grid">
                 <button onClick={() => navigate('/admin/product/add')}>Add Product</button>
                 <button onClick={() => navigate('/admin/product/update')}>Update/Delete Product</button>
-                <button>Categories</button>
+                <button onClick={() => navigate('/admin/categories')}>Categories</button>
                 <button>Find Order</button>
                 <button>Create Discount</button>
                 <button>View All Discounts</button>

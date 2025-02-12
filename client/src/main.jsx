@@ -16,6 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Layout from './components/Layout.jsx';
 import AddProduct from './components/AddProduct.jsx';
 import UpdateProduct from './components/UpdateProduct.jsx';
+import Categories from './components/Categories.jsx';
 
 export const ShopContext = createContext(null);
 
@@ -73,6 +74,10 @@ const Main = () => {
             {
               path: "product/update",
               element: <UpdateProduct />
+            }, 
+            {
+              path: "categories",
+              element: <Categories />
             }
           ]
         }

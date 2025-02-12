@@ -125,17 +125,7 @@ export default function UpdateProduct() {
             });
 
             if(!response.ok) {
-                const errorData = await response.json();
-
-                if(errorData.errors.length > 0) {
-                    let errs = {};
-                    for(let i = 0; i < errorData.errors.length; i++) {
-                        errs[errorData.errors[i].path] = errorData.errors[i].msg;
-                    }
-                    console.log(errs);
-                    setErrors(errs);
-                }
-                throw new Error('Failed to delete');
+                throw new Error('Failed to delete product');
             }
 
             const data = await response.json();

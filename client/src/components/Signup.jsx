@@ -155,7 +155,6 @@ export default function Signup() {
             </div>
 
             <button type="submit">Create Account</button>
-            <button type="button">Back</button>
         </form>
     );
 }

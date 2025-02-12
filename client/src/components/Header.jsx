@@ -26,21 +26,23 @@ export default function Header() {
 
     return (
         <div className="header">
-            {!account && 
-                <div className="flex-gap">
-                    <button onClick={() => navigate('/login')}>Login</button>
-                    <button onClick={() => navigate('/signup')}>Register</button>
-                </div>
-            }
-            {account &&
-                <div className="flex-gap">
-                    <p>Welcome, {account.username}</p>
-                    <button onClick={handleSignOut}>Sign Out</button>
-                </div>
-            }
+            <div className="flex-gap">
+                <i className="icon fa-solid fa-house" onClick={() => navigate('/')}></i>    
+                {!account && 
+                    <div className="flex-gap">
+                        <button onClick={() => navigate('/login')}>Login</button>
+                        <button onClick={() => navigate('/signup')}>Register</button>
+                    </div>
+                }
+                {account &&
+                    <div className="flex-gap">
+                        <p>Welcome, {account.username}</p>
+                        <button onClick={handleSignOut}>Sign Out</button>
+                    </div>
+                }
+            </div>
             {account &&            
                 <div className="flex-gap">
-                    <i className="icon fa-solid fa-house" onClick={() => navigate('/')}></i>
                     {account.admin && <i className="icon fa-solid fa-wrench" onClick={() => navigate('/admin')}></i>}
                     <i className="icon fa-solid fa-user" onClick={() => navigate('/account')}></i>
                     <i className="icon fa-solid fa-clipboard" onClick={() => navigate('/orders')}></i>

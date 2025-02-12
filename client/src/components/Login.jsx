@@ -94,7 +94,6 @@ export default function Login() {
             </div>
 
             <button type="submit">Login</button>
-            <button type="button">Back</button>
         </form>
     );
 }

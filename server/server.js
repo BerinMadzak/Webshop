@@ -224,7 +224,7 @@ app.get("/account", async (req, res) => {
     })
 });
 
-app.post("/product", [
+app.post("/products", [
     body('name').notEmpty().withMessage('Name is required'),
     body('price').notEmpty().withMessage('Price is required'),
     body('image_url').notEmpty().withMessage("Image is required")
@@ -240,7 +240,7 @@ app.post("/product", [
     res.status(200).json({  message: `Added <span class="special-text">${req.body.name}</span> to database`} );
 });
 
-app.put("/product", [
+app.put("/products", [
     body('name').notEmpty().withMessage('Name is required'),
     body('price').notEmpty().withMessage('Price is required'),
     body('image_url').notEmpty().withMessage("Image is required")
@@ -256,13 +256,13 @@ app.put("/product", [
     res.status(200).json({  message: `Product updated`} );
 });
 
-app.delete("/product", async (req, res) => {
+app.delete("/products", async (req, res) => {
     deleteProduct(req.body.product_id);
 
     res.status(200).json( {message: `Deleted <span class="special-text">${req.body.name}</span> from database`});
 });
 
-app.post("/category", [
+app.post("/categories", [
     body('name').notEmpty().withMessage('Name is required').custom(async(value) => {
         const category = await categoryExists(value);
         if(category) throw new Error('A category with that name already exists');
@@ -280,7 +280,7 @@ app.post("/category", [
     res.status(200).json({  message: `Added <span class="special-text">${req.body.name}</span> category to database`} );
 });
 
-app.put("/category", [
+app.put("/categories", [
     body('name').notEmpty().withMessage('Name is required').custom(async(value) => {
         const category = await categoryExists(value);
         if(category) throw new Error('A category with that name already exists');
@@ -298,7 +298,7 @@ app.put("/category", [
     res.status(200).json({  message: `Category updated`} );
 });
 
-app.delete("/category", async (req, res) => {
+app.delete("/categories", async (req, res) => {
     deleteCategory(req.body.category_id);
 
     res.status(200).json( {message: `Deleted <span class="special-text">${req.body.name}</span> category from database`});

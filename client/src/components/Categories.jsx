@@ -66,7 +66,7 @@ export default function Categories() {
         if(validate()) {
             try {
                 setLoading(true);
-                const response = await fetch('http://localhost:8080/category', {
+                const response = await fetch('http://localhost:8080/categories', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -107,7 +107,7 @@ export default function Categories() {
             try {
                 setLoading(true);
                 categoryDataUpdate.category_id = document.getElementById("category_id").value;
-                const response = await fetch('http://localhost:8080/category', {
+                const response = await fetch('http://localhost:8080/categories', {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
@@ -149,7 +149,7 @@ export default function Categories() {
                 category_id: currentCategory.category_id,
                 name: currentCategory.name
             };
-            const response = await fetch('http://localhost:8080/category', {
+            const response = await fetch('http://localhost:8080/categories', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'

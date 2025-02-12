@@ -16,7 +16,8 @@ const { getProducts, getCategories, createAccount,
     categoryExists,
     addCategory,
     updateCategory,
-    deleteCategory} = require("./data/queries");
+    deleteCategory,
+    getCategoryById} = require("./data/queries");
 const bcrypt = require("bcryptjs");
 const cookieParser = require("cookie-parser");
 const jwt = require('jsonwebtoken');

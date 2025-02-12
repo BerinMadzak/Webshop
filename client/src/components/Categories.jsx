@@ -47,15 +47,16 @@ export default function Categories() {
 
     const validateUpdate = () => {
         let errors = {};
-        if(!categoryData.name) errors.name = "Name is required";
+        if(!categoryDataUpdate.name) errors.name = "Name is required";
 
         setErrorsUpdate(errors);
         return Object.keys(errors).length === 0;
     };
 
-    function updateCategoryList(refresh = false) {
+    function updateCategoryList(id = -1) {
         fetch('http://localhost:8080/categories').then(res => res.json()).then(json => {
-            if(refresh) setCurrentCategory(json[0]);
+            if(id === 0) setCurrentCategory(json[id]);
+            else if(id > 0) setCurrentCategory(json.find(c => c.category_id == id));
             setCategories(json);
         });
     }
@@ -131,7 +132,7 @@ export default function Categories() {
 
                 const data = await response.json();
                 notification(data.message);
-                updateCategoryList();
+                updateCategoryList(categoryDataUpdate.category_id);
                 console.log('Category updated');
             } catch (error) {
                 console.error(error);
@@ -163,7 +164,7 @@ export default function Categories() {
 
             const data = await response.json();
             notification(data.message);
-            updateCategoryList(true);
+            updateCategoryList(0);
             console.log('Product deleted');
         } catch (error) {
             console.error(error);

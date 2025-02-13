@@ -1,16 +1,12 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import ProductList from './components/ProductList';
 import Filters from './components/Filters';
-import Header from './components/Header';
 import Search from './components/Search';
-import { ShopContext } from './main';
 
 function App() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-
-  const { setCartContents, setLoading, notification } = useContext(ShopContext);
 
   useEffect(() => {
     loadProducts("All", "");
@@ -29,27 +25,12 @@ function App() {
     loadProducts(category, search);
   }
 
-  function handleAdd(data) {
-    setLoading(true);
-    fetch(`http://localhost:8080/add`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    }).then(res => res.json()).then(data => {
-      setCartContents(data.contents);
-      notification(data.message);
-    }).catch(error => console.error(error))
-    .finally(setLoading(false));
-  }
-
   return (
     <div>
       <Search onFiltersChange={onFiltersChange}/>
       <div className='menu'>
         <Filters categories={categories} onFiltersChange={onFiltersChange}/>
-        <ProductList products={products} handleAdd={handleAdd}/>
+        <ProductList products={products} />
       </div>
     </div>
   )

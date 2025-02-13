@@ -39,7 +39,7 @@ export default function ProductDetail()
     if(!product) return "Failed to load product";
 
     return (
-        <div>
+        <div className="col-flex">
             <div className="product-details">
                 <div>
                     <img src={product.image_url} alt={product.name} />

@@ -31,6 +31,13 @@ button:focus {
   align-items: center;
 }
 
+.col-flex {
+  display: flex;
+  flex-direction: column;
+  height: 95vh;
+  justify-content: space-between;
+}
+
 .special-text {
   color: red;
   font-weight: bold;
@@ -121,6 +128,7 @@ button:focus {
 .product-details img {
   height: 500px;
   width: 500px;
+  margin-top: 30px;
 }
 
 .product-details-info {

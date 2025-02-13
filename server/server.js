@@ -232,6 +232,12 @@ app.get("/products/:product_id", async (req, res) => {
     res.json ( product );
 });
 
+app.get("/products/c/:category_id", async (req, res) => {
+    const category = req.params['category_id'];
+    const products = await getProducts(category, '');
+    res.json( products );
+});
+
 app.post("/products", [
     body('name').notEmpty().withMessage('Name is required'),
     body('price').notEmpty().withMessage('Price is required'),

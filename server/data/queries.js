@@ -227,9 +227,17 @@ function deleteCategory(category_id) {
     });
 }
 
+async function getProductById(product_id) {
+    const sql = `SELECT * FROM Products WHERE product_id = ?`;
+    const result = await getAll(sql, [product_id], (err) => {
+        if(err) return console.error(err.message);
+    });
+    return result[0];
+}
+
 module.exports = { getProducts, getCategories, createAccount, getUserByUsername, 
                 getUserByEmail, getCartByUserId, addToCart, getCartContents, changeItemQuantity,
                 createOrder, addItemToOrder, clearCart, getOrders, getOrderById, changePassword,
                 addProduct, updateProduct, deleteProduct, categoryExists, addCategory, updateCategory,
-                deleteCategory
+                deleteCategory, getProductById
             };

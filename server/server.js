@@ -17,7 +17,8 @@ const { getProducts, getCategories, createAccount,
     addCategory,
     updateCategory,
     deleteCategory,
-    getCategoryById} = require("./data/queries");
+    getCategoryById,
+    getProductById} = require("./data/queries");
 const bcrypt = require("bcryptjs");
 const cookieParser = require("cookie-parser");
 const jwt = require('jsonwebtoken');
@@ -223,6 +224,12 @@ app.get("/account", async (req, res) => {
         const contents = await getCartContents(cart.cart_id);    
         res.status(200).json({ user: user, cart: cart, contents: contents });
     })
+});
+
+app.get("/products/:product_id", async (req, res) => {
+    const product_id = req.params['product_id'];
+    const product = await getProductById(product_id);
+    res.json ( product );
 });
 
 app.post("/products", [

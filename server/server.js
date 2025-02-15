@@ -17,8 +17,9 @@ const { getProducts, getCategories, createAccount,
     addCategory,
     updateCategory,
     deleteCategory,
-    getCategoryById,
-    getProductById} = require("./data/queries");
+    getProductById,
+    getUserId,
+    getOrder} = require("./data/queries");
 const bcrypt = require("bcryptjs");
 const cookieParser = require("cookie-parser");
 const jwt = require('jsonwebtoken');
@@ -62,7 +63,14 @@ app.get("/orders/:user_id", async (req, res) => {
 app.get("/order/:order_id", async (req, res) => {
     const order_id = req.params['order_id'];
     const order = await getOrderById(order_id);
-    res.json ( order );
+    res.status(200).json ( order );
+});
+
+app.get("/order/c/:order_id", async (req, res) => {
+    const order_id = req.params['order_id'];
+    const order = await getOrder(order_id);
+    if(order.length === 0) res.status(404).json({ message: "Order with that id doesn't exist"});
+    else res.status(200).json ( order );
 });
 
 app.post("/add", async(req, res) => {
@@ -224,6 +232,13 @@ app.get("/account", async (req, res) => {
         const contents = await getCartContents(cart.cart_id);    
         res.status(200).json({ user: user, cart: cart, contents: contents });
     })
+});
+
+app.get("/userid/:username", async (req, res) => {
+    const username = req.params['username'];
+    const user_id = await getUserId(username);
+    if(user_id === undefined) res.status(404).json({ message: "User does not exist" });
+    else res.status(200).json( user_id );
 });
 
 app.get("/products/:product_id", async (req, res) => {

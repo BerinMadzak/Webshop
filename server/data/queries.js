@@ -165,6 +165,15 @@ async function getOrders(user_id) {
     return result;
 }
 
+async function getOrder(order_id) {
+    const sql = `SELECT o.order_id, o.total_price, o.order_date, SUM(oi.quantity) AS total_quantity FROM Orders o
+    LEFT JOIN order_items oi ON o.order_id = oi.order_id WHERE o.order_id = ?
+    GROUP BY o.order_id, o.total_price, o.order_date
+    ORDER BY order_date`;
+    const result = await getAll(sql, [order_id]);
+    return result;
+}
+
 async function getOrderById(order_id) {
     const sql = `SELECT oi.product_id, oi.price, oi.quantity, oi.quantity * oi.price AS total_price, p.name, p.image_url
     FROM order_items oi JOIN products p ON oi.product_id = p.product_id
@@ -235,9 +244,17 @@ async function getProductById(product_id) {
     return result[0];
 }
 
+async function getUserId(username) {
+    const sql = `SELECT user_id FROM Users WHERE username = ?`;
+    const result = await getAll(sql, [username], (err) => {
+        if(err) return console.error(err.message);
+    });
+    return result[0];
+}
+
 module.exports = { getProducts, getCategories, createAccount, getUserByUsername, 
                 getUserByEmail, getCartByUserId, addToCart, getCartContents, changeItemQuantity,
                 createOrder, addItemToOrder, clearCart, getOrders, getOrderById, changePassword,
                 addProduct, updateProduct, deleteProduct, categoryExists, addCategory, updateCategory,
-                deleteCategory, getProductById
+                deleteCategory, getProductById, getUserId, getOrder
             };

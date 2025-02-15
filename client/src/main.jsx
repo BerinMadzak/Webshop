@@ -18,6 +18,7 @@ import AddProduct from './components/AddProduct.jsx';
 import UpdateProduct from './components/UpdateProduct.jsx';
 import Categories from './components/Categories.jsx';
 import ProductDetail from './components/ProductDetail.jsx';
+import FindOrder from './components/FindOrder.jsx';
 
 export const ShopContext = createContext(null);
 
@@ -83,6 +84,10 @@ const Main = () => {
             {
               path: "categories",
               element: <Categories />
+            },
+            {
+              path: "orders",
+              element: <FindOrder />
             }
           ]
         }

@@ -10,7 +10,7 @@ export default function Admin() {
                 <button onClick={() => navigate('/admin/product/add')}>Add Product</button>
                 <button onClick={() => navigate('/admin/product/update')}>Update/Delete Product</button>
                 <button onClick={() => navigate('/admin/categories')}>Categories</button>
-                <button>Find Order</button>
+                <button onClick={() => navigate('/admin/orders')}>Find Order</button>
                 <button>Create Discount</button>
                 <button>View All Discounts</button>
             </div>

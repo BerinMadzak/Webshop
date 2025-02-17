@@ -71,3 +71,10 @@ npm run dev
 node .\server\data\init-db.js
 ```
 
+### 6. Admin Account
+Test admin account:
+```bash
+    username: Test
+    password: 123456
+```
+

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ShopContext } from "../main";
 import CartProduct from "./CartProduct";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Checkout from "./Checkout";
 import { toast } from "react-toastify";
 
@@ -125,6 +125,9 @@ export default function Cart()
                     }
                 </tbody>
             </table>
+            {cartContents && cartContents.length === 0 &&
+                <p>Cart is empty, click <Link to="/">here</Link> to browse the store.</p>
+            }
             <Checkout total={totalPrice().toFixed(2)} handleOrder={handleOrder} count={cartContents.length}/>
         </div>
     );

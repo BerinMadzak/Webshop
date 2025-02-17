@@ -83,7 +83,7 @@ export default function Signup() {
     if(created) return (
         <div className="center-flex">
             <p>Account created</p>
-            <button onClick={() => navigate('/')}>Go to login</button>
+            <button onClick={() => navigate('/login')}>Go to login</button>
         </div>
     );
 

@@ -1,10 +1,13 @@
 import { useContext, useState } from "react";
 import { ShopContext } from "../main";
+import { useNavigate } from "react-router-dom";
 
 export default function AddToCart({ product }) {
     const [count, setCount] = useState(1);
 
     const { account, cart, cartContents, setCartContents, setLoading, notification } = useContext(ShopContext);
+
+    const navigate = useNavigate();
 
     function addToCart() {
         setCount(prev => prev + 1);
@@ -24,7 +27,7 @@ export default function AddToCart({ product }) {
 
     function handleAddToCart() {
         if(!account) navigate('/login', { state: { msg: 'Please login to add items to cart' } });
-        handleAdd({cart_id: cart.cart_id, product_id: product.product_id, quantity: count});
+        else handleAdd({cart_id: cart.cart_id, product_id: product.product_id, quantity: count});
     }
 
     function getCartCount() {

@@ -106,8 +106,16 @@ async function changeItemQuantity(data) {
 }
 
 async function getCartContents(cart_id) {
-    const sql = `SELECT p.product_id, p.name, p.price, p.image_url, ci.quantity, (p.price * ci.quantity) AS total_price 
+    const sql = `SELECT p.product_id, p.name, p.price, p.image_url, ci.quantity,
+                d.amount as discount_amount, Round((p.price - p.price * (d.amount/100)), 2) as discounted_price,
+                ROUND(
+                CASE
+                    WHEN d.amount IS NOT NULL 
+                    THEN (p.price - p.price * (d.amount/100)) * ci.quantity
+                    ELSE p.price * ci.quantity
+                END, 2) AS total_price
                 FROM Products p 
+                LEFT JOIN Discounts d on p.product_id = d.product_id
                 JOIN Cart_Items ci ON p.product_id = ci.product_id 
                 JOIN Carts c ON ci.cart_id = c.cart_id
                 WHERE c.cart_id = ?`;

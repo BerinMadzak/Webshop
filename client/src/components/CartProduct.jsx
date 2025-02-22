@@ -16,7 +16,7 @@ export default function CartProduct({ product, actions })
                 </div>
             </td>
             <td>
-            <p className="product-price">{product.price}</p>
+            <p className="product-price">{product.discounted_price ? product.discounted_price : product.price}</p>
             </td>
             <td>
                 <p className="product-price">{product.total_price}</p>

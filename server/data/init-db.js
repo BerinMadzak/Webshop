@@ -74,6 +74,14 @@ const createTablesQuery = `
         FOREIGN KEY (order_id) REFERENCES Orders(order_id),
         FOREIGN KEY (product_id) REFERENCES Products(product_id)
     );
+
+    CREATE TABLE IF NOT EXISTS Discounts (
+        discount_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        product_id INTEGER NOT NULL,
+        amount REAL NOT NULL,
+        end_date TIMESTAMP NOT NULL,
+        FOREIGN KEY (product_id) REFERENCES Products(product_id)
+    );
 `
 
 const addDataQuery = `

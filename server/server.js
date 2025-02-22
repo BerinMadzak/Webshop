@@ -19,7 +19,11 @@ const { getProducts, getCategories, createAccount,
     deleteCategory,
     getProductById,
     getUserId,
-    getOrder} = require("./data/queries");
+    getOrder,
+    getActiveDiscounts,
+    getActiveDiscoutById,
+    deleteDiscount,
+    addDiscount} = require("./data/queries");
 const bcrypt = require("bcryptjs");
 const cookieParser = require("cookie-parser");
 const jwt = require('jsonwebtoken');
@@ -210,6 +214,45 @@ app.post("/order", async(req, res) => {
     await clearCart(data.user_id);
     const contents = await getCartContents(data.cart_id);
     res.status(200).json({ message: "Order created", contents: contents});
+});
+
+// Discounts
+
+app.get("/discounts", async (req, res) => {
+    const discounts = await getActiveDiscounts();
+    res.status(200).json ( discounts );
+});
+
+app.get("/discounts/:product_id", async (req, res) => {
+    const product_id = req.params['product_id'];
+    const discount = await getActiveDiscoutById(product_id);
+    res.status(200).json ( discount );
+});
+
+app.post("/discounts", [
+    body('product_id').custom(async(value) => {
+        const discount = await getActiveDiscoutById(value);
+        if(discount) throw new Error('Product already has an active discount');
+        return true;
+    }),
+    body('amount').notEmpty().withMessage('Amount is required'),
+    body('end_date').notEmpty().withMessage("End date is required")
+], async (req, res) => {
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    addDiscount(req.body);
+    
+    res.status(200).json({  message: `Added discount`} );
+});
+
+app.delete("/discounts", async (req, res) => {
+    deleteDiscount(req.body.discount_id);
+
+    res.status(200).json( {message: `Deleted discount`});
 });
 
 // Account

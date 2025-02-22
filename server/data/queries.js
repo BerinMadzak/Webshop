@@ -252,9 +252,44 @@ async function getUserId(username) {
     return result[0];
 }
 
+function addDiscount(data) {
+    const sql = `INSERT INTO Discounts (product_id, amount, end_date) VALUES (?, ?, ?)`;
+    db.run(sql, [data.product_id, data.amount, data.end_date], (err) => {
+        if(err) return console.error(err.message);
+    });
+}
+
+async function getActiveDiscounts() {
+    const sql = `SELECT d.discount_id, d.product_id, d.amount, d.end_date, p.name, p.price FROM Discounts d 
+        JOIN Products p ON d.product_id = p.product_id
+        WHERE end_date > CURRENT_DATE`;
+    const result = await getAll(sql, [], (err) => {
+        if(err) return console.error(err.message);
+    });
+    return result;
+}
+
+async function getActiveDiscoutById(product_id) {
+    const sql = `SELECT d.product_id, d.amount, d.end_date, p.name, p.price FROM Discounts d 
+        JOIN Products p ON d.product_id = p.product_id
+        WHERE d.product_id = ? AND end_date > CURRENT_DATE`;
+    const result = await getAll(sql, [product_id], (err) => {
+        if(err) return console.error(err.message);
+    });
+    return result[0];
+}
+
+function deleteDiscount(discount_id) {
+    const sql = `DELETE FROM Discounts WHERE discount_id = ?`;
+    db.run(sql, [discount_id], (err) => {
+        if(err) return console.error(err.message);
+    });
+}
+
 module.exports = { getProducts, getCategories, createAccount, getUserByUsername, 
                 getUserByEmail, getCartByUserId, addToCart, getCartContents, changeItemQuantity,
                 createOrder, addItemToOrder, clearCart, getOrders, getOrderById, changePassword,
                 addProduct, updateProduct, deleteProduct, categoryExists, addCategory, updateCategory,
-                deleteCategory, getProductById, getUserId, getOrder
+                deleteCategory, getProductById, getUserId, getOrder, addDiscount, getActiveDiscounts,
+                getActiveDiscoutById, deleteDiscount
             };

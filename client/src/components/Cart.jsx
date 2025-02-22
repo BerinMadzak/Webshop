@@ -3,7 +3,6 @@ import { ShopContext } from "../main";
 import CartProduct from "./CartProduct";
 import { Link, useNavigate } from "react-router-dom";
 import Checkout from "./Checkout";
-import { toast } from "react-toastify";
 
 export default function Cart()
 {

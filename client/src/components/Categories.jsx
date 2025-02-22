@@ -165,7 +165,7 @@ export default function Categories() {
             const data = await response.json();
             notification(data.message);
             updateCategoryList(0);
-            console.log('Product deleted');
+            console.log('Category deleted');
         } catch (error) {
             console.error(error);
         } finally {

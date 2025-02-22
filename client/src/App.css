@@ -307,6 +307,21 @@ button[disabled], button[disabled]:hover, button[disabled]:focus, button[disable
   font-size: 0.9rem;
 }
 
+.delete-discount {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 30px;
+  width: 50%;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.delete-discount select {
+  width: 120%;
+  height: 30px;
+}
+
 .signup-form {
   display: flex;
   flex-direction: column;

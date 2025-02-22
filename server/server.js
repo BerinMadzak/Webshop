@@ -207,7 +207,7 @@ app.post("/order", async(req, res) => {
             order_id: order_id,
             product_id: p.product_id,
             quantity: p.quantity, 
-            price: p.price
+            price: p.discounted_price ? p.discounted_price : p.price
         };
         await addItemToOrder(productData);
     }

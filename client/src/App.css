@@ -88,12 +88,12 @@ button:focus {
 
 .product-price {
   font-style: italic;
-  margin: 0;
 }
 
 .old-price {
   text-decoration: line-through;
   color: rgba(200, 200, 200, 0.7);
+  margin-top: 0;
 }
 
 .product-price::after, .cart-total::after {

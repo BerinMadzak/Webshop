@@ -11,17 +11,6 @@ export default function ProductDetail()
     const [product, setProduct] = useState();
     const [ similarProducts, setSimilarProducts ] = useState(null);
 
-    const [discount, setDiscount] = useState(null);
-
-    function calculatePrice() {
-        return discount ? product.price - product.price * (discount.amount/100) : product.price;
-    }
-
-    useEffect(() => {
-        fetch(`http://localhost:8080/discounts/${productId}`).then(res => res.json()).then(json => setDiscount(json));
-    }, []);
-
-
     useEffect(() => {
         setLoading(true);
         fetch(`http://localhost:8080/products/${productId}`)
@@ -58,8 +47,8 @@ export default function ProductDetail()
                 <div className="product-details-info">
                     <h1>{product.name}</h1>
                     <p>{product.description}</p>
-                    {discount && <p className="product-price old-price">{product.price}</p>}
-                    <p className="product-price">{calculatePrice()}</p>
+                    {product.discounted_price && <p className="product-price old-price">{product.price}</p>}
+                    <p className="product-price">{product.discounted_price ? product.discounted_price : product.price}</p>
                     <AddToCart product={product}/>
                 </div>
             </div>

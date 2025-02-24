@@ -235,7 +235,11 @@ app.post("/discounts", [
         if(discount) throw new Error('Product already has an active discount');
         return true;
     }),
-    body('amount').notEmpty().withMessage('Amount is required'),
+    body('amount').notEmpty().withMessage('Amount is required').isNumeric().withMessage("Must be a valid number")
+    .custom(value => {
+        if(value < 1 || value > 99) throw new Error('Amount must be between 1% and 99%');
+        return true;
+    }),
     body('end_date').notEmpty().withMessage("End date is required").isDate().withMessage("Must be a valid date")
     .custom(value => {
         const today = new Date();

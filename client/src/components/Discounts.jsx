@@ -141,7 +141,7 @@ export default function Discounts() {
                 <div>
                     <div>
                         <label htmlFor="amount">Amount (%): </label>
-                        <input type="text" id="amount" name="amount" value={discountData.amount} onChange={handleChange} />
+                        <input type="number" id="amount" name="amount" value={discountData.amount} onChange={handleChange} />
                     </div>
                     {errors.amount && <p>{errors.amount}</p>}
                 </div>

@@ -194,7 +194,7 @@ export default function UpdateProduct() {
                 <div>
                     <div>
                         <label htmlFor="price">Price: </label>
-                        <input type="numer" min={0} id="price" name="price" value={productData.price} onChange={handleChange} />
+                        <input type="number" id="price" name="price" value={productData.price} onChange={handleChange} />
                     </div>
                     {errors.price && <p>{errors.price}</p>}
                 </div>

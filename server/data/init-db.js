@@ -2,6 +2,7 @@ const db = require("./db")
 
 // Queries
 const dropTablesQuery = `
+    DROP TABLE IF EXISTS Discounts;
     DROP TABLE IF EXISTS Order_Items;
     DROP TABLE IF EXISTS Orders;
     DROP TABLE IF EXISTS Cart_Items;
@@ -120,7 +121,13 @@ const addDataQuery = `
         INSERT INTO Users (username, email, password_hash, first_name, last_name, phone_number, address, admin)
         VALUES 
             ("Test", "test@test.com", "$2a$10$RmN6YXYTjxGB4FqzWUA9ouY2TC.0XLkB8oMXm1MZd.bpJ/kTtXaci", "First_Name", "Last_Name", "12345678", "Test Address", true);
-`
+
+        INSERT INTO Discounts (product_id, amount, end_date) 
+        VALUES 
+            (1, 20, date(CURRENT_DATE, '+10 days')),
+            (3, 50, date(CURRENT_DATE, '+10 days')),
+            (10, 10, date(CURRENT_DATE, '+10 days'));
+        `
 
 // Query Execution
 db.exec(dropTablesQuery, (err) => {

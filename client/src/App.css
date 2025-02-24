@@ -115,7 +115,7 @@ button:focus {
 
 .product-discount {
   position: absolute;
-  left: 60px;
+  left: 10px;
   background-color: rgb(170, 7, 7);
   padding: 20px 5px;
   font-size: 1.2rem;
@@ -308,6 +308,7 @@ button[disabled], button[disabled]:hover, button[disabled]:focus, button[disable
 .icon {
   font-size: 2rem;
   position: relative;
+  width: 200px;
 }
 
 .cart-count {

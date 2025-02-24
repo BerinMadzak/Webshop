@@ -63,7 +63,11 @@ app.get("/products/c/:category_id", async (req, res) => {
 
 app.post("/products", [
     body('name').notEmpty().withMessage('Name is required'),
-    body('price').notEmpty().withMessage('Price is required'),
+    body('price').notEmpty().withMessage('Price is required').isNumeric().withMessage('Price must be a valid number')
+    .custom(value => {
+        if(value <= 0) throw new Error("Price must be a positive number");
+        return true;
+    }),
     body('image_url').notEmpty().withMessage("Image is required")
 ], async (req, res) => {
     const errors = validationResult(req);
@@ -79,7 +83,11 @@ app.post("/products", [
 
 app.put("/products", [
     body('name').notEmpty().withMessage('Name is required'),
-    body('price').notEmpty().withMessage('Price is required'),
+    body('price').notEmpty().withMessage('Price is required').isNumeric().withMessage('Price must be a valid number')
+    .custom(value => {
+        if(value <= 0) throw new Error("Price must be a positive number");
+        return true;
+    }),
     body('image_url').notEmpty().withMessage("Image is required")
 ], async (req, res) => {
     const errors = validationResult(req);

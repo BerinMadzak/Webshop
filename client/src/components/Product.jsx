@@ -11,7 +11,7 @@ export default function Product({product}) {
 
     return (
         <div className="product">
-            <div className="icon" onClick={() => navigate(`/product/${product.product_id}`)}>
+            <div className="icon icon-width" onClick={() => navigate(`/product/${product.product_id}`)}>
                 {product.discount_amount &&
                     <div className="product-discount">
                         <p>{"-" + product.discount_amount + "%"}</p>

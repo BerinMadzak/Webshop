@@ -21,7 +21,7 @@ function runAsync(sql, params = []) {
 
 async function getProducts(category, search) {
     let sql = `SELECT p.*, d.amount as discount_amount, Round((p.price - p.price * (d.amount/100)), 2) as discounted_price 
-        FROM Products p LEFT JOIN Discounts d ON p.product_id = d.product_id`;
+        FROM Products p LEFT JOIN Discounts d ON p.product_id = d.product_id AND d.end_date > CURRENT_DATE`;
     const params = [];
     if(category !== "All") {
         sql += " WHERE category_id = ?";
@@ -110,7 +110,7 @@ async function getCartContents(cart_id) {
                 d.amount as discount_amount, Round((p.price - p.price * (d.amount/100)), 2) as discounted_price,
                 ROUND(
                 CASE
-                    WHEN d.amount IS NOT NULL 
+                    WHEN d.amount IS NOT NULL AND d.end_date > CURRENT_DATE
                     THEN (p.price - p.price * (d.amount/100)) * ci.quantity
                     ELSE p.price * ci.quantity
                 END, 2) AS total_price
@@ -247,7 +247,7 @@ function deleteCategory(category_id) {
 
 async function getProductById(product_id) {
     const sql = `SELECT p.*, d.amount as discount_amount, ROUND((p.price - p.price * (d.amount/100)), 2) as discounted_price 
-        FROM Products p LEFT JOIN Discounts d ON p.product_id = d.product_id WHERE p.product_id = ?`;
+        FROM Products p LEFT JOIN Discounts d ON p.product_id = d.product_id AND d.end_date > CURRENT_DATE WHERE p.product_id = ?`;
     const result = await getAll(sql, [product_id], (err) => {
         if(err) return console.error(err.message);
     });

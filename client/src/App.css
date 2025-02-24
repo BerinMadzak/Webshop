@@ -308,6 +308,9 @@ button[disabled], button[disabled]:hover, button[disabled]:focus, button[disable
 .icon {
   font-size: 2rem;
   position: relative;
+}
+
+.icon-width {
   width: 200px;
 }
 

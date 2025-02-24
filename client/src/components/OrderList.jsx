@@ -31,6 +31,7 @@ export default function OrderList() {
             {orders &&
                 orders.map(order => <Order order={order} key={order.order_id} openDetails={openDetails}/>)
             }
+            {orders && orders.length === 0 && <p className="">No previous orders</p>}
         </div>
     );
 }

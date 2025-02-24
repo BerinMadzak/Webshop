@@ -45,7 +45,7 @@ export default function Discounts() {
         if(validate()) {
             try {
                 setLoading(true);
-                console.log(discountData);
+                if(discountData.product_id === '' && products.length > 0) discountData.product_id = products[0].product_id.toString();
                 const response = await fetch('http://localhost:8080/discounts', {
                     method: 'POST',
                     headers: {
@@ -137,6 +137,7 @@ export default function Discounts() {
                         products.map(p => <option value={p.product_id} key={p.product_id}>{p.name}</option>)
                     }
                 </select>
+                {errors.product_id && <p>{errors.product_id}</p>}
                 <div>
                     <div>
                         <label htmlFor="amount">Amount (%): </label>

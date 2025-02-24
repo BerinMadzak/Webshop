@@ -236,14 +236,20 @@ app.post("/discounts", [
         return true;
     }),
     body('amount').notEmpty().withMessage('Amount is required'),
-    body('end_date').notEmpty().withMessage("End date is required")
+    body('end_date').notEmpty().withMessage("End date is required").isDate().withMessage("Must be a valid date")
+    .custom(value => {
+        const today = new Date();
+        const inputDate = new Date(value);
+        if(inputDate <= today) throw new Error('End date cannot be in the past');
+        return true;
+    })
 ], async (req, res) => {
     const errors = validationResult(req);
 
     if(!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-
+    console.log(req.body);
     addDiscount(req.body);
     
     res.status(200).json({  message: `Added discount`} );

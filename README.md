@@ -1,6 +1,6 @@
 # Webshop 
 
-You can try the project here: https://webshop-zeta-five.vercel.app/
+You can try the project here: https://webshop-zeta-five.vercel.app/ (might have to wait about a minute for the server to start)
 
 A Webshop application built with **Node.js**, **Vite** and **React**. This is a mockup for an online shop that allows the user to add items to their cart and create orders.
 

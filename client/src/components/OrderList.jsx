@@ -14,7 +14,7 @@ export default function OrderList() {
         if(!account) return;
 
         setLoading(true);
-        fetch(`http://localhost:8080/orders/${account.user_id}`)
+        fetch(`${import.meta.env.VITE_BACKEND}/orders/${account.user_id}`)
         .then(res => res.json())
         .then(json => setOrders(json))
         .catch(err => console.log(err))

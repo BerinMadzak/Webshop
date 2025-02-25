@@ -15,7 +15,7 @@ export default function Discounts() {
     const { setLoading, notification } = useContext(ShopContext);
 
     useEffect(() => {
-        fetch('http://localhost:8080/products').then(res => res.json()).then(json => setProducts(json));
+        fetch(`${import.meta.env.VITE_BACKEND}/products`).then(res => res.json()).then(json => setProducts(json));
         updateDiscountList();
     }, []);
 
@@ -36,7 +36,7 @@ export default function Discounts() {
     };
 
     function updateDiscountList() {
-        fetch('http://localhost:8080/discounts').then(res => res.json()).then(json => setDiscounts(json));
+        fetch(`${import.meta.env.VITE_BACKEND}/discounts`).then(res => res.json()).then(json => setDiscounts(json));
     }
 
     const handleSubmit = async (e) => {
@@ -46,7 +46,7 @@ export default function Discounts() {
             try {
                 setLoading(true);
                 if(discountData.product_id === '' && products.length > 0) discountData.product_id = products[0].product_id.toString();
-                const response = await fetch('http://localhost:8080/discounts', {
+                const response = await fetch(`${import.meta.env.VITE_BACKEND}/discounts`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -88,7 +88,7 @@ export default function Discounts() {
             const cData = {
                 discount_id
             };
-            const response = await fetch('http://localhost:8080/discounts', {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND}/discounts`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'

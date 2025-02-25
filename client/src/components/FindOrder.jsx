@@ -28,11 +28,11 @@ export default function FindOrder() {
 
         setLoading(true);
         if(type === "User") {
-            fetch(`http://localhost:8080/userid/${search}`)
+            fetch(`${import.meta.env.VITE_BACKEND}/userid/${search}`)
             .then(res => res.json())
             .then(json => {
                 if(json.user_id) {
-                    fetch(`http://localhost:8080/orders/${json.user_id}`)
+                    fetch(`${import.meta.env.VITE_BACKEND}/orders/${json.user_id}`)
                     .then(res => res.json())
                     .then(json2 => setOrders(json2))
                     .catch(err => console.log(err));
@@ -42,7 +42,7 @@ export default function FindOrder() {
             })
             .finally(setLoading(false));
         } else if(type === "ID") {
-            fetch(`http://localhost:8080/order/c/${search}`)
+            fetch(`${import.meta.env.VITE_BACKEND}/order/c/${search}`)
             .then(res => res.json())
             .then(json => {
                 if(!json.message) setOrders(json)

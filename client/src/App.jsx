@@ -10,11 +10,11 @@ function App() {
 
   useEffect(() => {
     loadProducts("All", "");
-    fetch('http://localhost:8080/categories').then(res => res.json()).then(json => setCategories(json));
+    fetch(`${import.meta.env.VITE_BACKEND}/categories`).then(res => res.json()).then(json => setCategories(json));
   }, []);
 
   function loadProducts (category, search) {
-    fetch(`http://localhost:8080/products?category=${category}&search=${search}`)
+    fetch(`${import.meta.env.VITE_BACKEND}/products?category=${category}&search=${search}`)
       .then(res => res.json()).then(json => setProducts(json));
   }
 

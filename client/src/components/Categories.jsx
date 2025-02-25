@@ -18,7 +18,7 @@ export default function Categories() {
     const { setLoading, notification } = useContext(ShopContext);
 
     useEffect(() => {
-        fetch('http://localhost:8080/categories').then(res => res.json()).then(json => setCategories(json));
+        fetch(`${import.meta.env.VITE_BACKEND}/categories`).then(res => res.json()).then(json => setCategories(json));
     }, []);
 
     const handleChange = (e) => {
@@ -54,7 +54,7 @@ export default function Categories() {
     };
 
     function updateCategoryList(id = -1) {
-        fetch('http://localhost:8080/categories').then(res => res.json()).then(json => {
+        fetch(`${import.meta.env.VITE_BACKEND}/categories`).then(res => res.json()).then(json => {
             if(id === 0) setCurrentCategory(json[id]);
             else if(id > 0) setCurrentCategory(json.find(c => c.category_id == id));
             setCategories(json);
@@ -67,7 +67,7 @@ export default function Categories() {
         if(validate()) {
             try {
                 setLoading(true);
-                const response = await fetch('http://localhost:8080/categories', {
+                const response = await fetch(`${import.meta.env.VITE_BACKEND}/categories`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -108,7 +108,7 @@ export default function Categories() {
             try {
                 setLoading(true);
                 categoryDataUpdate.category_id = document.getElementById("category_id").value;
-                const response = await fetch('http://localhost:8080/categories', {
+                const response = await fetch(`${import.meta.env.VITE_BACKEND}/categories`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
@@ -150,7 +150,7 @@ export default function Categories() {
                 category_id: currentCategory.category_id,
                 name: currentCategory.name
             };
-            const response = await fetch('http://localhost:8080/categories', {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND}/categories`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'

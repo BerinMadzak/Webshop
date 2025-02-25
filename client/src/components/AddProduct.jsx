@@ -16,7 +16,7 @@ export default function AddProduct() {
     const { setLoading, notification } = useContext(ShopContext);
     
     useEffect(() => {
-        fetch('http://localhost:8080/categories').then(res => res.json()).then(json => setCategories(json));
+        fetch(`${import.meta.env.VITE_BACKEND}/categories`).then(res => res.json()).then(json => setCategories(json));
     }, []);
 
     const handleChange = (e) => {
@@ -44,7 +44,7 @@ export default function AddProduct() {
             try {
                 setLoading(true);
                 productData.category_id = document.getElementById("category_id").value;
-                const response = await fetch('http://localhost:8080/products', {
+                const response = await fetch(`${import.meta.env.VITE_BACKEND}/products`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

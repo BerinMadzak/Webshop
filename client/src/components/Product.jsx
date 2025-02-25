@@ -6,7 +6,7 @@ export default function Product({product}) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`http://localhost:8080/discounts/${product.product_id}`).then(res => res.json()).then(json => setDiscount(json));
+        fetch(`${import.meta.env.VITE_BACKEND}/discounts/${product.product_id}`).then(res => res.json()).then(json => setDiscount(json));
     }, []);
 
     return (

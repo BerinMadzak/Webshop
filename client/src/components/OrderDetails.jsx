@@ -63,7 +63,7 @@ export default function OrderDetails() {
         if(!account) return;
 
         setLoading(true);
-        fetch(`http://localhost:8080/order/${orderId}`)
+        fetch(`${import.meta.env.VITE_BACKEND}/order/${orderId}`)
         .then(res => res.json())
         .then(json => setOrder(json))
         .catch(err => console.log(err))

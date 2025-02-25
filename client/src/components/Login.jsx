@@ -37,7 +37,7 @@ export default function Login() {
 
         if(validate()) {
             try {
-                const response = await fetch('http://localhost:8080/login', {
+                const response = await fetch(`${import.meta.env.VITE_BACKEND}/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

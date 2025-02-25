@@ -21,7 +21,7 @@ export default function Cart()
             quantity: 0,
             cart_id: cart.cart_id
         };
-        fetch(`http://localhost:8080/quantity`, {
+        fetch(`${import.meta.env.VITE_BACKEND}/quantity`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -41,7 +41,7 @@ export default function Cart()
             quantity: quantity-1,
             cart_id: cart.cart_id
         };
-        fetch(`http://localhost:8080/quantity`, {
+        fetch(`${import.meta.env.VITE_BACKEND}/quantity`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -61,7 +61,7 @@ export default function Cart()
             quantity: quantity+1,
             cart_id: cart.cart_id
         };
-        fetch(`http://localhost:8080/quantity`, {
+        fetch(`${import.meta.env.VITE_BACKEND}/quantity`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -89,7 +89,7 @@ export default function Cart()
             cart_id: cart.cart_id
         };
         setLoading(true);
-        fetch(`http://localhost:8080/order`, {
+        fetch(`${import.meta.env.VITE_BACKEND}/order`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

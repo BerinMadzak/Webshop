@@ -38,7 +38,7 @@ export default function Account() {
         if(validate()) {
             setLoading(true);
             try {
-                const response = await fetch('http://localhost:8080/changePassword', {
+                const response = await fetch(`${import.meta.env.VITE_BACKEND}/changePassword`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

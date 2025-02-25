@@ -13,11 +13,11 @@ export default function ProductDetail()
 
     useEffect(() => {
         setLoading(true);
-        fetch(`http://localhost:8080/products/${productId}`)
+        fetch(`${import.meta.env.VITE_BACKEND}/products/${productId}`)
             .then(res => res.json())
             .then(json => {
                 setProduct(json);
-                fetch(`http://localhost:8080/products/c/${json.category_id}`)
+                fetch(`${import.meta.env.VITE_BACKEND}/products/c/${json.category_id}`)
                     .then(res2 => res2.json())
                     .then(json2 => {
                         const arr = [];

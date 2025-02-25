@@ -7,7 +7,7 @@ export default function Header() {
     const navigate = useNavigate();
 
     function handleSignOut() {
-        fetch('http://localhost:8080/logout', {
+        fetch(`${import.meta.env.VITE_BACKEND}/logout`, {
             method: 'POST',
             credentials: 'include'
         });

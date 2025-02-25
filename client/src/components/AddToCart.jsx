@@ -38,7 +38,7 @@ export default function AddToCart({ product }) {
 
     function handleAdd(data) {
         setLoading(true);
-        fetch(`http://localhost:8080/add`, {
+        fetch(`${import.meta.env.VITE_BACKEND}/add`, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'

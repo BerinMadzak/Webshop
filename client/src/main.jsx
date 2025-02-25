@@ -105,7 +105,7 @@ const Main = () => {
   ]);
 
   useEffect(() => {
-    fetch('http://localhost:8080/account', {
+    fetch(`${import.meta.env.VITE_BACKEND}/account`, {
       credentials: 'include'
     }).then(res => {
       if(res.ok) return res.json();

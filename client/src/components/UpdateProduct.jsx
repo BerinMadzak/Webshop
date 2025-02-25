@@ -18,15 +18,15 @@ export default function UpdateProduct() {
     const { setLoading, notification } = useContext(ShopContext);
     
     useEffect(() => {
-        fetch('http://localhost:8080/categories').then(res => res.json()).then(json => setCategories(json));
-        fetch('http://localhost:8080/products').then(res => res.json()).then(json => {
+        fetch(`${import.meta.env.VITE_BACKEND}/categories`).then(res => res.json()).then(json => setCategories(json));
+        fetch(`${import.meta.env.VITE_BACKEND}/products`).then(res => res.json()).then(json => {
             setProduct(json[0]);
             setProducts(json);
         });
     }, []);
 
     function updateProductList(refresh = false) {
-        fetch('http://localhost:8080/products').then(res => res.json()).then(json => {
+        fetch(`${import.meta.env.VITE_BACKEND}/products`).then(res => res.json()).then(json => {
             if(refresh) setProduct(json[0]);
             setProducts(json);
         });
@@ -74,7 +74,7 @@ export default function UpdateProduct() {
                 setLoading(true);
                 productData.category_id = document.getElementById("category_id").value;
                 productData.product_id = currentProduct.product_id;
-                const response = await fetch('http://localhost:8080/products', {
+                const response = await fetch(`${import.meta.env.VITE_BACKEND}/products`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
@@ -116,7 +116,7 @@ export default function UpdateProduct() {
                 product_id: currentProduct.product_id,
                 name: currentProduct.name
             };
-            const response = await fetch('http://localhost:8080/products', {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND}/products`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'

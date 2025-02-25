@@ -1,13 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import AddToCart from "./AddToCart";
-import { useEffect, useState } from "react";
 
 export default function Product({product}) {
     const navigate = useNavigate();
-
-    useEffect(() => {
-        fetch(`${import.meta.env.VITE_BACKEND}/discounts/${product.product_id}`).then(res => res.json()).then(json => setDiscount(json));
-    }, []);
 
     return (
         <div className="product">

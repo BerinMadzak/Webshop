@@ -1,4 +1,5 @@
 const db = require("./db")
+const bcrypt = require("bcryptjs");
 
 // Queries
 const dropTablesQuery = `
@@ -85,6 +86,9 @@ const createTablesQuery = `
     );
 `
 
+const hashedPassword = bcrypt.hashSync("123456", 10);
+console.log(hashedPassword);
+
 const addDataQuery = `
     INSERT INTO Categories (name)
     VALUES ("Electronics"), ("Jewelery"), ("Men's Clothing"), ("Women's Clothing");
@@ -120,7 +124,7 @@ const addDataQuery = `
         
         INSERT INTO Users (username, email, password_hash, first_name, last_name, phone_number, address, admin)
         VALUES 
-            ("Test", "test@test.com", "$2a$10$RmN6YXYTjxGB4FqzWUA9ouY2TC.0XLkB8oMXm1MZd.bpJ/kTtXaci", "First_Name", "Last_Name", "12345678", "Test Address", true);
+            ("admin", "admin@test.com", "${hashedPassword}", "First_Name", "Last_Name", "12345678", "Test Address", true);
 
         INSERT INTO Discounts (product_id, amount, end_date) 
         VALUES 

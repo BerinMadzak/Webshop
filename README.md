@@ -76,3 +76,10 @@ npm run dev
 # From root
 node .\server\data\init-db.js
 ```
+
+### 7. Admin account 
+You can log in as admin with these credentials:
+```bash
+username=admin
+password=123456
+```

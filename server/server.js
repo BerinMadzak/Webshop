@@ -405,6 +405,6 @@ app.get("/userid/:username", async (req, res) => {
     else res.status(200).json( user_id );
 });
 
-app.listen(8080, () => {
-    console.log("Server started on port 8080");
+app.listen(process.env.PORT, () => {
+    console.log(`Server started on port ${process.env.PORT}`);
 });

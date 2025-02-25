@@ -1,4 +1,6 @@
-# Webshop (WIP)
+# Webshop 
+
+You can try the project here: https://webshop-zeta-five.vercel.app/
 
 A Webshop application built with **Node.js**, **Vite** and **React**. This is a mockup for an online shop that allows the user to add items to their cart and create orders.
 
@@ -8,6 +10,7 @@ A Webshop application built with **Node.js**, **Vite** and **React**. This is a 
 - **Shopping Cart**: Users can add and remove products to/from the cart.
 - **Orders**: Users can create an order with the items inside of the cart.
 - **Order History**: View all previous orders and download individual orders as PDF.
+- **Discounts**: Products can be discounted for a set period of time.
 - **Responsive Design**: Adapts to various screen sizes. **(WIP)**
 
 ## Tech Stack
@@ -15,14 +18,15 @@ A Webshop application built with **Node.js**, **Vite** and **React**. This is a 
 - **Backend**: NodeJS, Express
 - **API**: FakeStore API
 - **Database**: SQLite
+- **Deployment**: Vercel (frontend), Render (backend)
 - **Version Control**: Git, GitHub
 
 ## Screenshots
-![Screenshot1](./screenshot1.png)
+![Screenshot1](./screenshots/screenshot1.png)
 
-![Screenshot2](./screenshot2.png)
+![Screenshot2](./screenshots/screenshot2.png)
 
-![Screenshot3](./screenshot3.png)
+![Screenshot3](./screenshots/screenshot3.png)
 
 
 ## Setup and Installation
@@ -53,8 +57,14 @@ npm install
 ### 3. Set up Environmental Variables
 Create a `.env` file at the root of `server` and add the following keys: 
 ```bash
-FRONTEND="http://localhost:5173" # IP for the client
+FRONTEND="http://localhost:5173" # URL for the client
 SECRET_KEY="TEMP KEY" # Used for password hashing
+PORT="8080"
+```
+
+Create a `.env` file at the root of `client` and add the following key:
+```bash
+VITE_BACKEND="http://localhost:8080" # URL for the server
 ```
 
 ### 4. Run the server

@@ -50,31 +50,29 @@ cd ..
 cd server
 npm install
 ```
+### 3. Set up Environmental Variables
+Create a `.env` file at the root of `server` and add the following keys: 
+```bash
+FRONTEND="http://localhost:5173" # IP for the client
+SECRET_KEY="TEMP KEY" # Used for password hashing
+```
 
-### 3. Run the server
+### 4. Run the server
 ```bash
 # From root 
 cd server
 npm run dev
 ```
 
-### 4. Run the client
+### 5. Run the client
 ```bash
 # From root
 cd client
 npm run dev
 ```
 
-### 5. Reset database (optional)
+### 6. Reset database (optional)
 ```bash
 # From root
 node .\server\data\init-db.js
 ```
-
-### 6. Admin Account
-Test admin account:
-```bash
-    username: Test
-    password: 123456
-```
-

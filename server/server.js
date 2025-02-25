@@ -27,10 +27,11 @@ const { getProducts, getCategories, createAccount,
 const bcrypt = require("bcryptjs");
 const cookieParser = require("cookie-parser");
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const app = express();
 const corsOptions = {
-    origin: ["http://localhost:5173"],
+    origin: [process.env.FRONTEND],
     credentials: true
 };
 
@@ -38,7 +39,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(cors(corsOptions));
 
-const SECRET_KEY = 'TEMP KEY'; // Store in env later
+const SECRET_KEY = process.env.SECRET_KEY; 
 
 // Products
 

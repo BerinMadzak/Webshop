@@ -11,7 +11,7 @@ A Webshop application built with **Node.js**, **Vite** and **React**. This is a 
 - **Orders**: Users can create an order with the items inside of the cart.
 - **Order History**: View all previous orders and download individual orders as PDF.
 - **Discounts**: Products can be discounted for a set period of time.
-- **Responsive Design**: Adapts to various screen sizes. **(WIP)**
+- **Responsive Design**: Adapts to various screen sizes.
 
 ## Tech Stack
 - **Frontend**: React, Vite, CSS, JavaScript

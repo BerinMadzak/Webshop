@@ -1,8 +1,8 @@
 #root {
   margin: 0 auto;
-  margin-top: 5vh;
+  margin-top: 7vh;
   text-align: center;
-  width: 100vw;
+  width: 100%;
 }
 
 body {
@@ -46,8 +46,8 @@ button:focus {
 .header {
   position: fixed;
   box-sizing: border-box;
-  width: 100vw;
-  height: 5vh;
+  width: 100%;
+  height: 7vh;
   background-color: #434343;
   display: flex;
   justify-content: space-between;
@@ -241,7 +241,8 @@ button:focus {
 
 .checkout {
   background-color: #323232;
-  width: 30%;
+  width: 60%;
+  height: auto;
   justify-self: center;
   padding-bottom: 30px;
   margin-top: 30px;
@@ -262,7 +263,6 @@ button:focus {
   display: flex;
   justify-content: center;
   gap: 50px;
-  width: 100%;
   padding: 20px;
   background-color: #434343;
   border: 5px solid black;
@@ -468,3 +468,90 @@ input[type=number] {
   animation: l3 1s infinite linear;
 }
 @keyframes l3 {to{transform: rotate(1turn)}}
+
+@media (max-width: 600px) {
+  .product-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .menu {
+    flex-direction: column;
+  }
+
+  .category-filter {
+    padding: 0px;
+  }
+
+  .search {
+    padding-top: 30px;
+  }
+
+  .header {
+    padding: 0px 20px;
+  }
+
+  .header .icon {
+    font-size: 1.2rem;
+  }
+
+  .header button {
+    height: 40px;
+    font-size: 0.8rem;
+  }
+
+  .header .flex-gap {
+    gap: 10px;
+  }
+
+  .header .flex-gap p {
+    font-size: 0.8rem;
+  }
+
+  #root {
+    overflow-x: hidden;
+  }
+
+  .Toastify__toast {
+    max-width: 50%;
+    max-height: 20%;
+    font-size: 0.8rem;
+    margin-right: 20px;
+  }
+
+  .cart-table {
+    font-size: 0.4rem;
+  }
+
+  .cart-table td p {
+    padding: 5px;
+  }
+
+  .cart-product-image {
+    width: 40px;
+    height: 40px;
+  }
+
+  .checkout {
+    width: 300px;
+  }
+
+  .order {
+    font-size: 0.8rem;
+    padding: 10px;
+    gap: 30px;
+  }
+
+  .admin-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  select {
+    width: 300px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .product-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
